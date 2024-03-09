@@ -18,6 +18,28 @@ const Floor = () => {
     );
   };
   
+ 
+  const MyAnimatedMesh = ({ position, color, animationType }) => {
+    const meshRef = useRef();
+  
+    useFrame((state, delta) => {
+      const time = state.clock.getElapsedTime(); // Tiempo transcurrido
+      let yPosition = 0;
+      if (animationType === "sine") {
+        yPosition = position[1] + Math.sin(time); // Animación en seno
+      } else if (animationType === "cosine") {
+        yPosition = position[1] + Math.cos(time); // Animación en coseno
+      }
+      meshRef.current.position.y = yPosition;
+    });
+  
+    return (
+      <mesh ref={meshRef} position={position}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshLambertMaterial color={color} />
+      </mesh>
+    );
+  };
   const MyMesh = ({ position, color }) => {
     return (
       <mesh position={position}>
@@ -103,13 +125,15 @@ const Floor = () => {
             <MeshWithMaterial position={[3, 1, 0]} color="orange" />
             <MeshWithMaterial position={[4, 1, 0]} color="cyan" />
   */
-  
+            
 const Experience = () => {
-    //const boxRef = useRef(null);
+    /*const boxRef = useRef(null);
     
-    //useFrame((state, delta)=>{
-        //boxRef.current.rotation.x += 1 * delta;
-    //});
+    useFrame(({clock}, delta)=>{
+      console.log(clock.getElapsedTime)
+      boxRef.current.position.y = Math.cos(clock.getElapsedTime());
+      boxRef.current.position.x += 0.4 * delta;
+    });*/
 
     return (
         <>
@@ -117,7 +141,7 @@ const Experience = () => {
             <directionalLight position={[10, 20, 5]} />
             <OrbitControls makeDefault />
             <Floor />
-            <MyMesh position={[0, 5, 0]} color="red" />
+            <MyAnimatedMesh position={[0, 5, 0]} color="red" animationType={"sine"}/>
             <MyMesh position={[3, 5, 0]} color="green" />
             <MyMesh3 position={[6, 5, 0]} color="blue" />
             <MyMesh4 position={[9, 5, 0]} color="yellow" />
