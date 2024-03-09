@@ -9,11 +9,11 @@ root.render(
     <Canvas
         camera={
             {
-                position: [2, 3, 5]
+                position: [0, 10, 20]
             }
         }
     >
         <Experience />
     </Canvas>
 
-)
+);
