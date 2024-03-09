@@ -24,15 +24,3 @@ const Experience = () => {
 }
 
 export default Experience;
-
-// const Experience = ({ title, subtitle }) => {
-
-//     return (
-//         <>
-//             <h1 className="title"> {title} </h1>
-//             <span> {subtitle} </span>
-//         </>
-//     )
-// }
-
-// export default Experience;

@@ -16,8 +16,4 @@ root.render(
         <Experience />
     </Canvas>
 
-    // <Experience 
-    //     title = "Squid Games"
-    //     subtitle = "3D Web"
-    // />
 )
