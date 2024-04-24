@@ -142,7 +142,7 @@ const Experience = () => {
             <OrbitControls makeDefault />
             <Floor />
             <MyAnimatedMesh position={[0, 5, 0]} color="red" animationType={"sine"}/>
-            <MyMesh position={[3, 5, 0]} color="green" />
+            <MyMesh2 position={[3, 5, 0]} color="green" />
             <MyMesh3 position={[6, 5, 0]} color="blue" />
             <MyMesh4 position={[9, 5, 0]} color="yellow" />
             <MyMesh5 position={[12, 5, 0]} color="purple" />
