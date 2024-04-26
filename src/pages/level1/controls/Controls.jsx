@@ -1,11 +1,11 @@
 import { OrbitControls, useKeyboardControls } from "@react-three/drei";
-import { useAvatar } from "../../../context/AvatarContext";
+import { useFox } from "../../../context/FoxContext";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Quaternion, Vector3 } from "three";
 
 export default function Controls() {
-    const { avatar, setAvatar } = useAvatar();
+    const { fox, setFox } = useFox();
     const [sub, get] = useKeyboardControls()
     const controlsRef = useRef()
     let walkDirection = new Vector3()
@@ -33,11 +33,11 @@ export default function Controls() {
         const unsubscribe = sub(
           (state) => state.forward || state.backward || state.leftward || state.rightward,
           (pressed) => {
-            setAvatar({ ...avatar, animation: pressed ? "Running" : "Idle" });
+            setFox({ ...fox, animation: pressed ? "Running" : "Idle" });
           }
         );
         return () => unsubscribe();
-      }, [avatar, setAvatar, sub, get]);
+      }, [fox, setFox, sub, get]);
 
       useEffect(()=>{
         if(play){
