@@ -11,6 +11,7 @@ import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
+import Fox from "./characters/fox/Fox";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
@@ -39,7 +40,7 @@ export default function Level1() {
                             jumpVel={4} 
                             position={[0,10,0]}
                         >
-                            <Avatar />
+                            <Fox />
                         </Ecctrl>
                     </Physics>
                     <WelcomeText position={[0, 1, -2]} />
