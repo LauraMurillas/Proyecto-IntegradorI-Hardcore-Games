@@ -15,7 +15,7 @@ import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
 export default function Level4() {
-  const [count,setCount]=useState(0)
+  //const [count,setCount]=useState(0)
   return (
     
     <>
