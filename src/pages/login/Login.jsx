@@ -1,19 +1,28 @@
 import "./stylesLogin.css";
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
+
+    const navigate = useNavigate();
+
     const onHandleButtonStart = () => {
-        console.log("Iniciar Juego");
-    }
+        navigate('/level1');
+    };
 
     return (
         <div className="container">
-            <div className="logo-univalle">
-                <img src="/assets/images/logo-univalle.png" alt="Logo Universidad del Valle" />
+            <div className="imagen-gabriel">
+                <img src="/assets/images/Fox2.png" alt="Fox Image"/>
             </div>
-            <div className="title-squid-games">
-                Bienvenido a<br/>Squid Games
-            </div>
-            <div onClick={onHandleButtonStart} className="button-start">
-                <button>Iniciar</button>
+            <div className="content">
+                <div className="Gabriel-text-primary">
+                    Adventures of Gabriel<br/>
+                </div>
+                <div className="Gabriel-text-secondary">
+                    Elena's Rescue<br/><br/>
+                </div>
+                <div onClick={onHandleButtonStart} className="button-start">
+                    <button>Empezar</button>
+                </div>
             </div>
         </div>
     );

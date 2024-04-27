@@ -5,7 +5,7 @@ import Level3 from "../pages/level3/Level3";
 import Level4 from "../pages/level4/Level4";
 import Login from "../pages/login/Login";
 
-export default function RoutesSquidGames() {
+export default function RoutesGabrielGame() {
     return (
         <BrowserRouter>
             <Routes>
