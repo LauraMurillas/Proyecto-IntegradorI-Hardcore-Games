@@ -1,36 +1,90 @@
 import { useGLTF } from "@react-three/drei"
 import { CuboidCollider, CylinderCollider, RigidBody } from "@react-three/rapier"
 
-export default function World(props) {
-    const { nodes, materials } = useGLTF("/assets/models/world/WorldSquidGames.glb")
+export default function World() {
+    const { nodes, materials } = useGLTF("/assets/models/world/castilloV2.glb")
+   
+   /// const map = useMovements();
 
     return (
-        <group {...props} dispose={null}>
-            <group>
-                <RigidBody colliders="trimesh" type="fixed">
-                    <mesh onClick={(e) => e.stopPropagation()} geometry={nodes.Walls.geometry} material={materials.wallMaterial} />
-                </RigidBody>
-                <RigidBody colliders="trimesh" type="fixed">
-                    <mesh onClick={(e) => e.stopPropagation()} receiveShadow={true} geometry={nodes.Floor.geometry} material={materials.floorMaterial} />
-                </RigidBody>
-                <RigidBody type="fixed" colliders={false}>
-                        <mesh
-                            onClick={(e) => e.stopPropagation()}
-                            castShadow={true}
-                            geometry={nodes.WoodenFence.geometry}
-                            material={materials.woodMaterial}>
-                            <CuboidCollider args={[0.2, 0.5, 47.5]} position={[-3.8, 0.5, -47]} />
-                            <CuboidCollider args={[0.2, 0.5, 47.5]} position={[4.2, 0.5, -47]} />
-                        </mesh>
-                </RigidBody>
-                <RigidBody colliders={false} type="fixed" >
-                    <mesh onClick={(e) => e.stopPropagation()} geometry={nodes.Tree.geometry} material={materials.treeMaterial} position={[0, 0, -96]} />
-                    <CylinderCollider args={[1, 0.5]} position={[0, 1, -96]} />
-                </RigidBody>
+      
+        
+            <group name="Scene">
+              <mesh
+                name="Landscape"
+                castShadow
+                receiveShadow
+                geometry={nodes.Landscape.geometry}
+                material={materials['Material.001']}
+                position={[-39.005, 2.733, -7.294]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[3.35, 3.96, 7]}
+              />
+              <mesh
+                name="Plane"
+                castShadow
+                receiveShadow
+                geometry={nodes.Plane.geometry}
+                material={materials['Material.002']}
+                position={[0, 1, -3]}
+                rotation={[Math.PI / 2, 0, -Math.PI]}
+                scale={[-3.02, -1.35, -7.62]}
+              />
+              <mesh
+                name="Landscape001"
+                castShadow
+                receiveShadow
+                geometry={nodes.Landscape001.geometry}
+                material={materials['Material.004']}
+                position={[12.995, 2.733, -8.294]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={[4.32, 3.96, 6]}
+              />
+              <group
+                name="objStairs"
+                position={[-15.31, 2.45, 2.36]}
+                rotation={[1.641, -0.001, 3.124]}
+                scale={[8, 8, 8.03]}>
+                <mesh
+                  name="objStairs_1"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.objStairs_1.geometry}
+                  material={materials.lambert7SG}
+                />
+                <mesh
+                  name="objStairs_2"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.objStairs_2.geometry}
+                  material={materials.lambert6SG}
+                />
+              </group>
+              <group
+                name="objStairs001"
+                position={[-14, 2, -17]}
+                rotation={[Math.PI / 2, 0, 0]}
+                scale={8}>
+                <mesh
+                  name="objStairs001_1"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.objStairs001_1.geometry}
+                  material={materials['lambert7SG.001']}
+                />
+                <mesh
+                  name="objStairs001_2"
+                  castShadow
+                  receiveShadow
+                  geometry={nodes.objStairs001_2.geometry}
+                  material={materials['lambert6SG.001']}
+                />
+              </group>
             </group>
-        </group>
+          
+        
     );
 }
 
-useGLTF.preload("/assets/models/world/WorldSquidGames.glb");
+useGLTF.preload("/assets/models/world/castilloV2.glb");
 
