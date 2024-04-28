@@ -15,7 +15,7 @@ const WelcomeText = (props) => {
             position={props.position}
         >
             <Text3D
-                font={"/assets/fonts/SquidGamesFont.json"}
+                font={"/assets/fonts/Triforce.json"}
                 bevelEnabled
                 bevelSize={0.005}
                 bevelThickness={0.01}

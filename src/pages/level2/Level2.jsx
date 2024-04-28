@@ -1,7 +1,7 @@
 import { Perf } from "r3f-perf";
 import { KeyboardControls, OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
 import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
@@ -16,6 +16,39 @@ import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
 export default function Level2() {
   const [count,setCount]=useState(0)
+  const [audio] = useState(new Audio("./assets/sounds/RuinasAudio.mp3"));
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  useEffect(() => {
+    const handleInteraction = () => {
+        // Una vez que el usuario haya interactuado con la página,
+        // establecemos el estado userInteracted a true.
+        setUserInteracted(true);
+    };
+
+    // Agregamos un evento de clic para detectar la interacción del usuario.
+    document.addEventListener("click", handleInteraction);
+
+    // Limpiamos el evento al desmontar el componente.
+    return () => {
+        document.removeEventListener("click", handleInteraction);
+    };
+}, []);
+
+useEffect(() => {
+    // Reproducir el sonido si el usuario ha interactuado con la página.
+    if (userInteracted) {
+        audio.loop = true;
+        audio.play();
+    }
+
+    return () => {
+        // Detener el sonido cuando el componente se desmonta.
+        audio.pause();
+        audio.currentTime = 0;
+    };
+}, [userInteracted]);
+
   return (
     
     <>
