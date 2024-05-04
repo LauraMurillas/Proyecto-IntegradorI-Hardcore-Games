@@ -75,7 +75,7 @@ export default function Level1() {
                         <Ecctrl
                             camInitDis={-3}
                             camMaxDis={-3}
-                            maxVelLimit={10} 
+                            maxVelLimit={5} 
                             jumpVel={4} 
                             position={[0,5,0]}
                         >

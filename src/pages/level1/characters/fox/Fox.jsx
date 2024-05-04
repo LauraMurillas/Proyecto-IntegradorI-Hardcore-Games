@@ -11,7 +11,8 @@ export default function Fox() {
   const foxBodyRef = useRef();
   const foxRef = useRef();
   const { fox, setFox } = useFox();
-  const { nodes, materials, animations} = useGLTF("/assets/models/fox/Fox.glb");
+  //const { nodes, materials, animations} = useGLTF("/assets/models/fox/Fox.glb");
+  const { nodes, materials, animations} = useGLTF("/assets/models/fox/Prueba2.glb");
   const { actions } = useAnimations(animations, foxRef)
   
  
@@ -24,7 +25,7 @@ export default function Fox() {
    //}, [foxBodyRef.current, foxRef.current])
 
   useEffect(() => {
-    actions[fox.animation]?.reset().fadeIn(0.5).play();
+    actions[fox.animation]?.reset().fadeIn(0.2).play();
     return () => {
       if (actions[fox.animation]) actions[fox.animation].fadeOut(0.5);
     };
@@ -32,9 +33,27 @@ export default function Fox() {
 
   return (
     //<RigidBody ref={foxBodyRef} position={[0, 1, -3]} colliders={false}>
-    <group ref={foxRef} name="Scene" position-y={-0.8}>
+    //<group ref={foxRef} name="Scene" position-y={-0.8}>
+    //    <group
+    //      name="Fox"
+    //      >
+    //      <skinnedMesh
+    //        name="Fox_Mesh"
+    //        geometry={nodes.Fox_Mesh.geometry}
+    //        material={materials.Fox}
+    //        skeleton={nodes.Fox_Mesh.skeleton}
+    //      />
+    //       <primitive object={nodes.Fox_Pelvis} />
+    //    </group>
+    //  </group>
+    //</RigidBody>
+
+    <group ref={foxRef} name="Scene" colliders={false}>
         <group
           name="Fox"
+          position={[0, -0.65, 0]}
+          rotation={[0.094, -Math.PI / 1.7, 0]}
+          scale={0.01}
           >
           <skinnedMesh
             name="Fox_Mesh"
@@ -45,6 +64,7 @@ export default function Fox() {
           <primitive object={nodes.Fox_Pelvis} />
         </group>
       </group>
-    //</RigidBody>
   );
 }
+
+useGLTF.preload("/assets/models/fox/Prueba2.glb")

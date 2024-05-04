@@ -33,11 +33,34 @@ export default function Controls() {
         const unsubscribe = sub(
           (state) => state.forward || state.backward || state.leftward || state.rightward,
           (pressed) => {
+            setFox({ ...fox, animation: pressed ? "Walk" : "Idle" });
+          }
+        );
+        return () => unsubscribe();
+      }, [fox, setFox, sub, get]);
+
+
+      useEffect(() => {
+        const unsubscribe = sub(
+          (state) => state.run && (state.forward || state.backward || state.leftward || state.rightward),
+          (pressed) => {
             setFox({ ...fox, animation: pressed ? "Running" : "Idle" });
           }
         );
         return () => unsubscribe();
       }, [fox, setFox, sub, get]);
+
+
+      useEffect(() => {
+        const unsubscribe = sub(
+          (state) => state.roll,
+          (pressed) => {
+            setFox({ ...fox, animation: pressed ? "Rolling" : "Idle" });
+          }
+        );
+        return () => unsubscribe();
+      }, [fox, setFox, sub, get]);
+
 
       useEffect(()=>{
         if(play){
