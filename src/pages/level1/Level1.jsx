@@ -70,7 +70,7 @@ export default function Level1() {
                         speed={4}
                         scale={20}
                     />
-                    <Physics debug={true}>
+                    <Physics debug={false}>
                         <World2 />
                         <Ecctrl
                             camInitDis={-3}
