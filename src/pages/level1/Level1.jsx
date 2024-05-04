@@ -58,19 +58,19 @@ export default function Level1() {
                     position: [0, 1, 0]
                 }}
             >
-                {/* <Perf position="top-left" /> */}
+                <Perf position="top-left" />
                 <Suspense fallback={null}>
                     <Lights />
                     <Environments />
                     <Sparkles 
                         color="white"
-                        count={100}
-                        size={4}
+                        count={200}
+                        size={7}
                         fade={false}
-                        speed={1.5}
-                        scale={20}
+                        speed={2}
+                        scale={70}
                     />
-                    <Physics debug={false}>
+                    <Physics debug={true}>
                         <World2 />
                         <Ecctrl
                             camInitDis={-3}

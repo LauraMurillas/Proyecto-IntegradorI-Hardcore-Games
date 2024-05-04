@@ -48,7 +48,8 @@ export default function Fox() {
     //  </group>
     //</RigidBody>
 
-    <group ref={foxRef} name="Scene" colliders={false}>
+    <RigidBody ref={foxBodyRef} position={[0, 0, 0]} colliders={false}>
+    <group ref={foxRef} name="Scene">
         <group
           name="Fox"
           position={[0, -0.65, 0]}
@@ -63,7 +64,8 @@ export default function Fox() {
           />
           <primitive object={nodes.Fox_Pelvis} />
         </group>
-      </group>
+    </group>
+    </RigidBody>
   );
 }
 
