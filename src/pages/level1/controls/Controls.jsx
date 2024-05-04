@@ -29,37 +29,32 @@ export default function Controls() {
     //     return 0;
     // }
 
+
     useEffect(() => {
-        const unsubscribe = sub(
-          (state) => state.forward || state.backward || state.leftward || state.rightward,
-          (pressed) => {
-            setFox({ ...fox, animation: pressed ? "Walk" : "Idle" });
+      const unsubscribe = sub(
+        (state) => ({
+          roll: state.roll,
+          run: state.run,
+          forward: state.forward,
+          backward: state.backward,
+          leftward: state.leftward,
+          rightward: state.rightward
+        }),
+        ({ roll, run, forward, backward, leftward, rightward }) => {
+          if (roll) {
+            setFox({ ...fox, animation: "Rolling" });
+          } else if (run) {
+            setFox({ ...fox, animation: "Running" });
+          } else if (forward || backward || leftward || rightward) {
+            setFox({ ...fox, animation: "Walk" });
+          } else {
+            setFox({ ...fox, animation: "Idle" });
           }
-        );
-        return () => unsubscribe();
-      }, [fox, setFox, sub, get]);
-
-
-      useEffect(() => {
-        const unsubscribe = sub(
-          (state) => state.run && (state.forward || state.backward || state.leftward || state.rightward),
-          (pressed) => {
-            setFox({ ...fox, animation: pressed ? "Running" : "Idle" });
-          }
-        );
-        return () => unsubscribe();
-      }, [fox, setFox, sub, get]);
-
-
-      useEffect(() => {
-        const unsubscribe = sub(
-          (state) => state.roll,
-          (pressed) => {
-            setFox({ ...fox, animation: pressed ? "Rolling" : "Idle" });
-          }
-        );
-        return () => unsubscribe();
-      }, [fox, setFox, sub, get]);
+        }
+      );
+      return () => unsubscribe();
+    }, [fox, setFox, sub, get]);
+    
 
 
       useEffect(()=>{

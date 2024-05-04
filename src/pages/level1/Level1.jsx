@@ -64,11 +64,11 @@ export default function Level1() {
                     <Environments />
                     <Sparkles 
                         color="white"
-                        count={200}
-                        size={7}
+                        count={150}
+                        size={10}
                         fade={false}
-                        speed={2}
-                        scale={70}
+                        speed={4}
+                        scale={20}
                     />
                     <Physics debug={true}>
                         <World2 />

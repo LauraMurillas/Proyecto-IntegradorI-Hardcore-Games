@@ -52,7 +52,7 @@ export default function Fox() {
     <group ref={foxRef} name="Scene">
         <group
           name="Fox"
-          position={[0, -0.65, 0]}
+          position={[0, -0.63, 0]}
           rotation={[0.094, -Math.PI / 1.7, 0]}
           scale={0.01}
           >
