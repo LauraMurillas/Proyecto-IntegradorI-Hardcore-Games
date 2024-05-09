@@ -25,7 +25,7 @@ export default function Fox() {
    //}, [foxBodyRef.current, foxRef.current])
 
   useEffect(() => {
-    actions[fox.animation]?.reset().fadeIn(0.2).play();
+    actions[fox.animation]?.reset().fadeIn(0.5).play();
     return () => {
       if (actions[fox.animation]) actions[fox.animation].fadeOut(0.5);
     };
