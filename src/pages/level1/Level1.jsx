@@ -1,7 +1,7 @@
 import { Perf } from "r3f-perf";
 import { KeyboardControls, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
 import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
@@ -18,76 +18,106 @@ import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
 export default function Level1() {
     const map = useMovements();
-    const [audio] = useState(new Audio("./assets/sounds/BosqueEncantadoAudio.mp3"));
+    const audioRef = useRef(new Audio("./assets/sounds/BosqueEncantadoAudio.mp3"));
     const [userInteracted, setUserInteracted] = useState(false);
+    const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
 
     useEffect(() => {
-        const handleInteraction = () => {
-            // Una vez que el usuario haya interactuado con la página,
-            // establecemos el estado userInteracted a true.
-            setUserInteracted(true);
-        };
-
-        // Agregamos un evento de clic para detectar la interacción del usuario.
-        document.addEventListener("click", handleInteraction);
-
-        // Limpiamos el evento al desmontar el componente.
-        return () => {
-            document.removeEventListener("click", handleInteraction);
-        };
-    }, []);
-
-    useEffect(() => {
-        // Reproducir el sonido si el usuario ha interactuado con la página.
-        if (userInteracted) {
-            audio.loop = true;
+        const audio = audioRef.current;
+        audio.loop = true;
+        audio.volume = volume;
+        
+        if (userInteracted && audio.paused){
             audio.play();
         }
 
         return () => {
-            // Detener el sonido cuando el componente se desmonta.
             audio.pause();
             audio.currentTime = 0;
-        };
-    }, [userInteracted]);
+        }
+    }, [userInteracted, volume]);
+
+
+    const handleVolumeChange = (event) => {
+        const newVolume = parseFloat(event.target.value);
+        setVolume(newVolume);
+        audioRef.current.volume = newVolume;
+    }
+
+    const playAudio = () => {
+        setUserInteracted(true);
+    }
+
+    const muteAudio = () => {
+        setUserInteracted(false);
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+    }
 
     return (
-        <KeyboardControls map={map} >
-            <Canvas
-                camera={{
-                    position: [0, 1, 0]
-                }}
-            >
-                <Perf position="top-left" />
-                <Suspense fallback={null}>
-                    <Lights />
-                    <Environments />
-                    <Sparkles 
-                        color="white"
-                        count={150}
-                        size={10}
-                        fade={false}
-                        speed={4}
-                        scale={20}
-                    />
-                    <Physics debug={false}>
-                        <World2 />
-                        <Ecctrl
-                            camInitDis={-3}
-                            camMaxDis={-3}
-                            maxVelLimit={5} 
-                            jumpVel={4} 
-                            position={[0,5,0]}
-                        >
-                            <Fox />
-                        </Ecctrl>
-                    </Physics>
-                    <WelcomeText position={[0, 1, -2]} />
-                    <Controls />
-                </Suspense>
+        <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+            <KeyboardControls map={map} >
+                <Canvas
+                    camera={{
+                        position: [0, 1, 0]
+                    }}
+                >
+                    <Perf position="top-left" />
+                    <Suspense fallback={null}>
+                        <Lights />
+                        <Environments />
+                        <Sparkles 
+                            color="white"
+                            count={150}
+                            size={10}
+                            fade={false}
+                            speed={4}
+                            scale={20}
+                        />
+                        <Physics debug={false}>
+                            <World2 />
+                            <Ecctrl
+                                camInitDis={-3}
+                                camMaxDis={-3}
+                                maxVelLimit={5} 
+                                jumpVel={4} 
+                                position={[0,5,0]}
+                            >
+                                <Fox />
+                            </Ecctrl>
+                        </Physics>
+                        <WelcomeText position={[0, 1, -2]} />
+                        <Controls />
+                    </Suspense>
 
-            </Canvas>
-        </KeyboardControls>
+                </Canvas>
+            </KeyboardControls>
 
+            {/* Control de volumen */}
+            <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '9999' }}>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={handleVolumeChange}
+                    disabled = {!userInteracted}
+                />
+            </div>
+            {/* Boton para iniciar la reprodución del audio */}
+            <button onClick={playAudio} style={{position: 'absolute', top:'50px', right: '10px', zIndex: '9999'}} disabled={userInteracted}>
+            </button>
+
+            {/* Boton para detener la reproducción del audio */}
+            <button
+            onClick={muteAudio} style={{position: 'absolute', top: '80px', right: '10px', zIndex: '9999'}}>
+
+            </button>
+
+
+
+        </div>
     )
 }
+
