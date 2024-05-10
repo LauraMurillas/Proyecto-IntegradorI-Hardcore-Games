@@ -3,6 +3,7 @@ import { useFox } from "../../../context/FoxContext";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Quaternion, Vector3 } from "three";
+import { materialRotation, rotate } from "three/examples/jsm/nodes/Nodes.js";
 
 export default function Controls() {
     const { fox, setFox } = useFox();
@@ -29,7 +30,6 @@ export default function Controls() {
     //     return 0;
     // }
 
-
     useEffect(() => {
       const unsubscribe = sub(
         (state) => ({
@@ -54,7 +54,6 @@ export default function Controls() {
       );
       return () => unsubscribe();
     }, [fox, setFox, sub, get]);
-    
 
 
       useEffect(()=>{
