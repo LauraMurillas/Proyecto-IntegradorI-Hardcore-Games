@@ -1,5 +1,5 @@
 import { Perf } from "r3f-perf";
-import { KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
+import { ContactShadows, KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect, useRef } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -13,6 +13,7 @@ import World2 from "./world/World2";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import Fox from "./characters/fox/Fox";
+import Bush from "./characters/bush/Bush";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
@@ -92,8 +93,10 @@ const toggleInstructions = () => {
                             speed={4}
                             scale={20}
                         />
-                        <Physics debug={false}>
+                        <Physics debug={true}>
                             <World2 />
+                            <Bush />
+                            <ContactShadows scale={[16, 16]} opacity={0, 42} />
                             <Ecctrl
                                 camInitDis={-3}
                                 camMaxDis={-3}
@@ -105,6 +108,7 @@ const toggleInstructions = () => {
                             </Ecctrl>
                         </Physics>
                         <WelcomeText position={[0, 1, -2]} />
+                        
                         <Controls />
                     </Suspense>
 
@@ -142,6 +146,7 @@ const toggleInstructions = () => {
             >
                 Detener audio
             </button>
+
         </div>
     )
 }
