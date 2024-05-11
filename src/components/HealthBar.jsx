@@ -5,7 +5,7 @@ const HealthBar = ({ lives, maxLives }) => {
   const healthPercentage = (lives / maxLives) * 100;
 
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div style={{ display: "flex", alignItems: "center",position: 'absolute', top: '20px', right: '500px', zIndex: '9999' }}>
       {/* Muestra los corazones */}
       {Array.from({ length: maxLives }, (_, index) => (
         <div
