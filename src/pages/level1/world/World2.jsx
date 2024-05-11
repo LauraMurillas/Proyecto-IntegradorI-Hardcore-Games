@@ -108,22 +108,24 @@ export default function World2(props) {
           scale={5}
         />
 
-        <RigidBody colliders="trimesh" type="fixed">
+        <RigidBody colliders={false} type="fixed">
             <mesh
                 geometry={nodes.Troncos1.geometry}
                 material={materials['Wood_tree.001']}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={5}
             />
+            <CuboidCollider args={[0.2, 0.5, 47.5]} /> 
         </RigidBody>
 
-        <RigidBody colliders="trimesh" type="fixed">
+        <RigidBody colliders={false} type="fixed">
             <mesh
                 geometry={nodes.Troncos2.geometry}
                 material={materials['Wood_tree.002']}
                 rotation={[-Math.PI / 2, 0, 0]}
                 scale={5}
             />
+            <CuboidCollider args={[0.2, 0.5, 47.5]} /> 
         </RigidBody>
  
     </group>
