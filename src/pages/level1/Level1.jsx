@@ -1,5 +1,5 @@
 import { Perf } from "r3f-perf";
-import { KeyboardControls, OrbitControls, Sparkles } from "@react-three/drei";
+import { KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect, useRef } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -91,6 +91,9 @@ export default function Level1() {
                     </Suspense>
 
                 </Canvas>
+                <Loader >
+                    { 'Cargando Nivel 1' }
+                </Loader>
             </KeyboardControls>
 
             {/* Control de volumen */}
