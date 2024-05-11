@@ -16,7 +16,8 @@ import Fox from "./characters/fox/Fox";
 import Bush from "./characters/bush/Bush";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
-import HealthBar from '../../components/HealthBar'; // Importa el componente HealthBar
+import HealthBar from '../../components/HealthBar';
+import RewardSpawner from "./characters/rewards/RewardSpawner";
 
 export default function Level1() {
     const map = useMovements();
@@ -32,7 +33,6 @@ const [showInstructions, setShowInstructions] = useState(false);
 const toggleInstructions = () => {
   setShowInstructions(!showInstructions);
 };
-
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -65,8 +65,6 @@ const toggleInstructions = () => {
         audioRef.current.currentTime = 0;
     }
 
-
-  
     const decreaseLives = () => {
       // Reducir las vidas del personaje
       if (lives > 0) {
@@ -159,6 +157,7 @@ const toggleInstructions = () => {
           </Canvas>
           <Loader />
         </KeyboardControls>
+        <RewardSpawner/>
 
         {/* Control de volumen */}
         <div

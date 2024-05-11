@@ -39,8 +39,8 @@ const RewardSpawner = () => {
       rewardSymbols[Math.floor(Math.random() * rewardSymbols.length)];
 
     // Genera una posición aleatoria
-    const randomX = Math.random() * 10;
-    const randomY = Math.random() * 10;
+    const randomX = Math.random() * 1;
+    const randomY = Math.random() * 1;
 
     console.log(randomSymbol, randomX, randomY);
 

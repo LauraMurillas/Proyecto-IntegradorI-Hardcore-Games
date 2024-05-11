@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useRef } from "react";
 
-export const FoxContext = createContext(); // Aquí usamos FoxContext con F mayúscula
+export const FoxContext = createContext();
 
 export const useFox = () => {
     const context = useContext(FoxContext);
@@ -12,15 +12,17 @@ export const useFox = () => {
 }
 
 export function FoxProvider({ children }) {
+    const foxRef = useRef();
     const [fox, setFox] = useState({
-        ref: null,
+        ref: foxRef,
         body: null,
         animation: "Idle",
-    })
+    });
 
     return (
-        <FoxContext.Provider value={{ fox, setFox }}> {/* Aquí usamos FoxContext con F mayúscula */}
+        <FoxContext.Provider value={{ fox, setFox }}>
             {children}
         </FoxContext.Provider>
     )
 }
+
