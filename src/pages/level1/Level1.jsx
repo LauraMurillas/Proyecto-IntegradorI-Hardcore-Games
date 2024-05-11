@@ -15,12 +15,24 @@ import Avatar from "./characters/avatar/Avatar";
 import Fox from "./characters/fox/Fox";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import HealthBar from '../../components/HealthBar'; // Importa el componente HealthBar
+
 
 export default function Level1() {
     const map = useMovements();
     const audioRef = useRef(new Audio("./assets/sounds/BosqueEncantadoAudio.mp3"));
     const [userInteracted, setUserInteracted] = useState(false);
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
+    const [lives, setLives] = useState(3); // Número de vidas del personaje
+    const maxLives = 5; // Número máximo de vidas
+  
+/**para l introduccion del juego */
+const [showInstructions, setShowInstructions] = useState(false);
+
+const toggleInstructions = () => {
+  setShowInstructions(!showInstructions);
+};
+
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -54,10 +66,37 @@ export default function Level1() {
         audioRef.current.currentTime = 0;
     }
 
+
+  
+    const decreaseLives = () => {
+      // Reducir las vidas del personaje
+      if (lives > 0) {
+        setLives((prevLives) => prevLives - 1);
+      }
+    };
+
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <KeyboardControls map={map} >
-                <Canvas
+               
+               <div>
+             <HealthBar lives={lives} maxLives={maxLives} />
+      </div><div>
+        {/* Botón para reducir las vidas del personaje (solo para demostración) */}
+        <button onClick={decreaseLives}style={{position: 'absolute', top: '20px', right: '300px', zIndex: '9999'}}>Reducir Vidas</button>
+      </div>
+     
+      <button onClick={toggleInstructions}style={{position: 'absolute', top: '20px', right: '200px', zIndex: '9999'}}>Instrucciones</button>
+      
+      {showInstructions && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={toggleInstructions}>&times;</span>
+            <p>En este nivel, Gabriel debe esquivar plantas venenosas y otros insectos. Utiliza las teclas de dirección para moverte.</p>
+          </div>
+        </div>
+      )}
+                <KeyboardControls map={map} >
+                 <Canvas
                     camera={{
                         position: [0, 1, 0]
                     }}
@@ -92,7 +131,7 @@ export default function Level1() {
 
                 </Canvas>
             </KeyboardControls>
-
+             
             {/* Control de volumen */}
             <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '9999' }}>
                 <input
@@ -120,4 +159,3 @@ export default function Level1() {
         </div>
     )
 }
-
