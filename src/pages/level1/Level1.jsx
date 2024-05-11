@@ -1,3 +1,4 @@
+
 import { Perf } from "r3f-perf";
 import { ContactShadows, KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -28,6 +29,11 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
+    const [collectItems, setCollectedItems] = useState([]);
+
+    const handleCollect = (item) => {
+      setCollectedItems((prevItems) => [...prevItems, item]);
+    };
   
 /**para l introduccion del juego */
 const [showInstructions, setShowInstructions] = useState(false);
@@ -76,6 +82,7 @@ const toggleInstructions = () => {
 
     return (
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+        <RewardSpawner onCollect={handleCollect} />
         <KeyboardControls map={map}>
           <div>
             <HealthBar lives={lives} maxLives={maxLives} />
@@ -159,7 +166,6 @@ const toggleInstructions = () => {
           </Canvas>
           <Loader />
         </KeyboardControls>
-        <RewardSpawner/>
 
         {/* Control de volumen */}
         <div
