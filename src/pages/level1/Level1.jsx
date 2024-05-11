@@ -1,5 +1,5 @@
 import { Perf } from "r3f-perf";
-import { KeyboardControls, OrbitControls, Sparkles } from "@react-three/drei";
+import { KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect, useRef } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -15,13 +15,22 @@ import Avatar from "./characters/avatar/Avatar";
 import Fox from "./characters/fox/Fox";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
-import RewardSpawner from "./characters/rewards/RewardSpawner";
 
 export default function Level1() {
     const map = useMovements();
     const audioRef = useRef(new Audio("./assets/sounds/BosqueEncantadoAudio.mp3"));
     const [userInteracted, setUserInteracted] = useState(false);
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
+    const [lives, setLives] = useState(3); // Número de vidas del personaje
+    const maxLives = 5; // Número máximo de vidas
+  
+/**para l introduccion del juego */
+const [showInstructions, setShowInstructions] = useState(false);
+
+const toggleInstructions = () => {
+  setShowInstructions(!showInstructions);
+};
+
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -54,11 +63,17 @@ export default function Level1() {
         audioRef.current.currentTime = 0;
     }
 
+
+  
+    const decreaseLives = () => {
+      // Reducir las vidas del personaje
+      if (lives > 0) {
+        setLives((prevLives) => prevLives - 1);
+      }
+    };
+
     return (
-        <div 
-            id="game-container" 
-            style={{ position: 'relative', width: '100vw', height: '100vh' }}
-        >
+        <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
             <KeyboardControls map={map} >
                 <Canvas
                     camera={{
@@ -94,8 +109,10 @@ export default function Level1() {
                     </Suspense>
 
                 </Canvas>
+                <Loader >
+                    { 'Cargando Nivel 1' }
+                </Loader>
             </KeyboardControls>
-            <RewardSpawner />
 
             {/* Control de volumen */}
             <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '9999' }}>
@@ -128,5 +145,4 @@ export default function Level1() {
         </div>
     )
 }
-
 

@@ -6,6 +6,7 @@ const Experience = () => {
     return (
         <FoxProvider>
             <RoutesGabrielGame />
+        
         </FoxProvider>
     )
 }
