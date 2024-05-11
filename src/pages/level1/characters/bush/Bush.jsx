@@ -4,10 +4,6 @@ import { CuboidCollider, RigidBody } from "@react-three/rapier"
 
 export default function Bush(props) {
   const { nodes, materials } = useGLTF("/assets/models/bush/Arbusto.glb")
-  const cube = useRef();
-  useEffect(() => {
-    cube.current.applyImpulse({x:4, y: 0.1, z:0});
-  });
 
   return (
     <group {...props} dispose={null} position={[3, 0.3, 0]}>

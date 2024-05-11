@@ -16,6 +16,7 @@ import Fox from "./characters/fox/Fox";
 import Bush from "./characters/bush/Bush";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import HealthBar from '../../components/HealthBar'; // Importa el componente HealthBar
 
 export default function Level1() {
     const map = useMovements();
@@ -74,80 +75,137 @@ const toggleInstructions = () => {
     };
 
     return (
-        <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
-            <KeyboardControls map={map} >
-                <Canvas
-                    camera={{
-                        position: [0, 1, 0]
-                    }}
-                >
-                    <Perf position="top-left" />
-                    <Suspense fallback={null}>
-                        <Lights />
-                        <Environments />
-                        <Sparkles 
-                            color="white"
-                            count={150}
-                            size={10}
-                            fade={false}
-                            speed={4}
-                            scale={20}
-                        />
-                        <Physics debug={true}>
-                            <World2 />
-                            <Bush />
-                            <ContactShadows scale={[16, 16]} opacity={0, 42} />
-                            <Ecctrl
-                                camInitDis={-3}
-                                camMaxDis={-3}
-                                maxVelLimit={5} 
-                                jumpVel={4} 
-                                position={[0,5,0]}
-                            >
-                                <Fox />
-                            </Ecctrl>
-                        </Physics>
-                        <WelcomeText position={[0, 1, -2]} />
-                        
-                        <Controls />
-                    </Suspense>
-
-                </Canvas>
-                <Loader >
-                    { 'Cargando Nivel 1' }
-                </Loader>
-            </KeyboardControls>
-
-            {/* Control de volumen */}
-            <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '9999' }}>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={volume}
-                    onChange={handleVolumeChange}
-                    disabled={!userInteracted}
-                />
-            </div>
-            {/* Boton para iniciar la reprodución del audio */}
-            <button 
-                onClick={playAudio} 
-                style={{position: 'absolute', top:'50px', right: '10px', zIndex: '9999'}} 
-                disabled={userInteracted}
-            >
-                Reproducir audio
-            </button>
-
-            {/* Boton para detener la reproducción del audio */}
+      <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+        <KeyboardControls map={map}>
+          <div>
+            <HealthBar lives={lives} maxLives={maxLives} />
+          </div>
+          <div>
+            {/* Botón para reducir las vidas del personaje (solo para demostración) */}
             <button
-                onClick={muteAudio} 
-                style={{position: 'absolute', top: '80px', right: '10px', zIndex: '9999'}}
+              onClick={decreaseLives}
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "300px",
+                zIndex: "9999",
+              }}
             >
-                Detener audio
+              Reducir Vidas
             </button>
+          </div>
 
+          <button
+            onClick={toggleInstructions}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "200px",
+              zIndex: "9999",
+            }}
+          >
+            Instrucciones
+          </button>
+
+          {showInstructions && (
+            <div className="modal">
+              <div className="modal-content">
+                <span className="close" onClick={toggleInstructions}>
+                  &times;
+                </span>
+                <p>
+                  En este nivel, Gabriel debe esquivar plantas venenosas y otros
+                  insectos. Utiliza las teclas de dirección para moverte.
+                </p>
+              </div>
+            </div>
+          )}
+
+          <Canvas
+            camera={{
+              position: [0, 1, 0],
+            }}
+          >
+            <Perf position="top-left" />
+            <Suspense fallback={null}>
+              <Lights />
+              <Environments />
+              <Sparkles
+                color="white"
+                count={150}
+                size={10}
+                fade={false}
+                speed={4}
+                scale={20}
+              />
+              <Physics debug={true}>
+                <World2 />
+                <Bush />
+                <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
+                <Ecctrl
+                  camInitDis={-3}
+                  camMaxDis={-3}
+                  maxVelLimit={5}
+                  jumpVel={4}
+                  position={[0, 5, 0]}
+                >
+                  <Fox />
+                </Ecctrl>
+              </Physics>
+              <WelcomeText position={[0, 1, -2]} />
+
+              <Controls />
+            </Suspense>
+          </Canvas>
+          <Loader />
+        </KeyboardControls>
+
+        {/* Control de volumen */}
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            zIndex: "9999",
+          }}
+        >
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            disabled={!userInteracted}
+          />
         </div>
-    )
+        {/* Boton para iniciar la reprodución del audio */}
+        <button
+          onClick={playAudio}
+          style={{
+            position: "absolute",
+            top: "50px",
+            right: "10px",
+            zIndex: "9999",
+          }}
+          disabled={userInteracted}
+        >
+          Reproducir audio
+        </button>
+
+        {/* Boton para detener la reproducción del audio */}
+        <button
+          onClick={muteAudio}
+          style={{
+            position: "absolute",
+            top: "80px",
+            right: "10px",
+            zIndex: "9999",
+          }}
+        >
+          Detener audio
+        </button>
+      </div>
+    );
 }
 
