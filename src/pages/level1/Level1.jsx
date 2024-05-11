@@ -10,6 +10,8 @@ import { Girl } from "./characters/girl/Girl";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
 import World2 from "./world/World2";
+import World3 from "./world/World3";
+import World4 from "./world/World4";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import Fox from "./characters/fox/Fox";
@@ -139,7 +141,7 @@ const toggleInstructions = () => {
                 scale={20}
               />
               <Physics debug={true}>
-                <World2 />
+                <World4 />
                 <Bush />
                 <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
                 <Ecctrl
