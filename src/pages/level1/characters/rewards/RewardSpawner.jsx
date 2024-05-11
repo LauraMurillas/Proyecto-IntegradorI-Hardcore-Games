@@ -38,16 +38,15 @@ const RewardSpawner = () => {
     const randomSymbol =
       rewardSymbols[Math.floor(Math.random() * rewardSymbols.length)];
 
-    // Genera una posición aleatoria
-    const randomX = Math.random() * 1;
-    const randomY = Math.random() * 1;
-
+    // Genera una posición aleatoria dentro del mapa de 30x30
+    const randomX = Math.floor(Math.random() * 30);
+    const randomY = Math.floor(Math.random() * 30);
     console.log(randomSymbol, randomX, randomY);
 
     // Agrega la recompensa a la lista de recompensas generadas
     setSpawnedItems((prevItems) => [
       ...prevItems,
-      { symbol: randomSymbol, x: randomX, y: randomY },
+      { symbol: randomSymbol, x: randomX, y: randomY},
     ]);
 
     // Establece un temporizador para que la recompensa desaparezca después de 5 segundos
@@ -101,8 +100,8 @@ const RewardSpawner = () => {
           key={index}
           style={{
             position: "absolute",
-            top: `${item.y}%`,
-            left: `${item.x}%`,
+            top: `${(item.y / 30) * 100}%`, // Normaliza la posición en relación al mapa de 30x30
+            left: `${(item.x / 30) * 100}%`, // Normaliza la posición en relación al mapa de 30x30
             fontSize: "100px",
             cursor: "pointer",
           }}
@@ -116,12 +115,3 @@ const RewardSpawner = () => {
 };
 
 export default RewardSpawner;
-
-
-
-
-
-
-
-
-
