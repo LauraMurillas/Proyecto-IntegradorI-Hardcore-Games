@@ -15,6 +15,7 @@ import Avatar from "./characters/avatar/Avatar";
 import Fox from "./characters/fox/Fox";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import RewardSpawner from "./characters/rewards/RewardSpawner";
 
 export default function Level1() {
     const map = useMovements();
@@ -37,7 +38,6 @@ export default function Level1() {
         }
     }, [userInteracted, volume]);
 
-
     const handleVolumeChange = (event) => {
         const newVolume = parseFloat(event.target.value);
         setVolume(newVolume);
@@ -55,7 +55,10 @@ export default function Level1() {
     }
 
     return (
-        <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+        <div 
+            id="game-container" 
+            style={{ position: 'relative', width: '100vw', height: '100vh' }}
+        >
             <KeyboardControls map={map} >
                 <Canvas
                     camera={{
@@ -92,6 +95,7 @@ export default function Level1() {
 
                 </Canvas>
             </KeyboardControls>
+            <RewardSpawner />
 
             {/* Control de volumen */}
             <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '9999' }}>
@@ -102,22 +106,27 @@ export default function Level1() {
                     step="0.01"
                     value={volume}
                     onChange={handleVolumeChange}
-                    disabled = {!userInteracted}
+                    disabled={!userInteracted}
                 />
             </div>
             {/* Boton para iniciar la reprodución del audio */}
-            <button onClick={playAudio} style={{position: 'absolute', top:'50px', right: '10px', zIndex: '9999'}} disabled={userInteracted}>
+            <button 
+                onClick={playAudio} 
+                style={{position: 'absolute', top:'50px', right: '10px', zIndex: '9999'}} 
+                disabled={userInteracted}
+            >
+                Reproducir audio
             </button>
 
             {/* Boton para detener la reproducción del audio */}
             <button
-            onClick={muteAudio} style={{position: 'absolute', top: '80px', right: '10px', zIndex: '9999'}}>
-
+                onClick={muteAudio} 
+                style={{position: 'absolute', top: '80px', right: '10px', zIndex: '9999'}}
+            >
+                Detener audio
             </button>
-
-
-
         </div>
     )
 }
+
 
