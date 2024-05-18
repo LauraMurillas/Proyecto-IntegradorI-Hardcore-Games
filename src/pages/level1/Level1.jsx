@@ -1,3 +1,4 @@
+
 import { Perf } from "r3f-perf";
 import { ContactShadows, KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -18,7 +19,8 @@ import Fox from "./characters/fox/Fox";
 import Bush from "./characters/bush/Bush";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
-import HealthBar from '../../components/HealthBar'; // Importa el componente HealthBar
+import HealthBar from '../../components/HealthBar';
+import RewardSpawner from "./characters/rewards/RewardSpawner";
 
 export default function Level1() {
     const map = useMovements();
@@ -27,6 +29,11 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
+    const [collectItems, setCollectedItems] = useState([]);
+
+    const handleCollect = (item) => {
+      setCollectedItems((prevItems) => [...prevItems, item]);
+    };
   
 /**para l introduccion del juego */
 const [showInstructions, setShowInstructions] = useState(false);
@@ -34,7 +41,6 @@ const [showInstructions, setShowInstructions] = useState(false);
 const toggleInstructions = () => {
   setShowInstructions(!showInstructions);
 };
-
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -67,8 +73,6 @@ const toggleInstructions = () => {
         audioRef.current.currentTime = 0;
     }
 
-
-  
     const decreaseLives = () => {
       // Reducir las vidas del personaje
       if (lives > 0) {
@@ -78,6 +82,7 @@ const toggleInstructions = () => {
 
     return (
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+        <RewardSpawner onCollect={handleCollect} />
         <KeyboardControls map={map}>
           <div>
             <HealthBar lives={lives} maxLives={maxLives} />
@@ -140,7 +145,7 @@ const toggleInstructions = () => {
                 speed={4}
                 scale={20}
               />
-              <Physics debug={true}>
+              <Physics debug={false}>
                 <World4 />
                 <Bush />
                 <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
