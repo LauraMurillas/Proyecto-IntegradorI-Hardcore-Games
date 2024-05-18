@@ -145,7 +145,7 @@ const toggleInstructions = () => {
                 speed={4}
                 scale={20}
               />
-              <Physics debug={true}>
+              <Physics debug={false}>
                 <World4 />
                 <Bush />
                 <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
