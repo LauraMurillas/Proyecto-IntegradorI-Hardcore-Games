@@ -13,6 +13,7 @@ import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import Dragon from './Dragon';
 
 export default function Level2() {
   const [count,setCount]=useState(0)
@@ -58,7 +59,8 @@ useEffect(() => {
         <Suspense fallback={null}>
           <World />
         </Suspense>
-      </Canvas>
+        <Dragon position={[0, 0, 0]} />
+           </Canvas>
 
     </>
   );
