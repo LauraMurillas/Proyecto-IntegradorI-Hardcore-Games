@@ -3,7 +3,7 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
 
-export function Start(props) {
+export function Start({onClick, ...props}) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/assets/models/rewards/star.glb')
   const { actions } = useAnimations(animations, group)
@@ -29,6 +29,7 @@ export function Start(props) {
                 receiveShadow
                 geometry={nodes.star_0.geometry}
                 material={materials.glassesFrames}
+                onClick={onClick}
               />
               <mesh
                 name="star_1"
@@ -36,6 +37,7 @@ export function Start(props) {
                 receiveShadow
                 geometry={nodes.star_1.geometry}
                 material={materials.lens}
+                onClick={onClick}
               />
               <mesh
                 name="star_2"
@@ -43,6 +45,7 @@ export function Start(props) {
                 receiveShadow
                 geometry={nodes.star_2.geometry}
                 material={materials.Star}
+                onClick={onClick}
               />
             </group>
           </group>

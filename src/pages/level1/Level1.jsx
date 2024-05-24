@@ -81,7 +81,7 @@ const toggleInstructions = () => {
     };
 
     const onCollisionFox = ({other}) =>{
-      console.log(other.rigiBodyObject);
+      console.log(other.name);
       if(other.rigiBodyObject.name === "Bush"){
         console.log("Colisiono con el arbusto");
       }

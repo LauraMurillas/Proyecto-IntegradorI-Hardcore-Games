@@ -53,7 +53,8 @@ useEffect(() => {
   return (
     
     <>
-       <Canvas>
+       <Canvas
+       camera={{position: [0, 2, 0],}}>
         <ambientLight />
         <OrbitControls/>
         <Suspense fallback={null}>

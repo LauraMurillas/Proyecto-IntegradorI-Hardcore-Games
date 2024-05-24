@@ -1,11 +1,23 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from '@react-three/rapier';
+import { useFrame } from '@react-three/fiber';
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF('/assets/models/rewards/potion.glb')
+export function potion({onClick, ...props}) {
+  const { nodes, materials } = useGLTF('/assets/models/rewards/potion.glb');
+  const meshRef = useRef();
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.05;
+    }
+  });
+
+
   return (
-    <group {...props} dispose={null}>
-      <group scale={0.01}>
+    <group {...props} dispose={null} ref={meshRef}>
+        <RigidBody type='fixed' name='Potion'>
+        <group scale={0.01}>
         <mesh
           castShadow
           receiveShadow
@@ -31,6 +43,7 @@ export function Model(props) {
           scale={100}
         />
       </group>
+        </RigidBody>
     </group>
   )
 }
