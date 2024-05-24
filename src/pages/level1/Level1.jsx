@@ -1,4 +1,3 @@
-
 import { Perf } from "r3f-perf";
 import { ContactShadows, KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -21,6 +20,7 @@ import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import HealthBar from '../../components/HealthBar';
 import RewardSpawner from "./characters/rewards/RewardSpawner";
+import RewardIcons from "./characters/rewards/RewardIcons";
 
 export default function Level1() {
     const map = useMovements();
@@ -32,7 +32,7 @@ export default function Level1() {
     const [collectItems, setCollectedItems] = useState([]);
 
     const handleCollect = (item) => {
-      setCollectedItems((prevItems) => [...prevItems, item]);
+      console.log(`Collected ${item.name}`);
     };
   
 /**para l introduccion del juego */
@@ -80,9 +80,15 @@ const toggleInstructions = () => {
       }
     };
 
+    const onCollisionFox = ({other}) =>{
+      console.log(other.rigiBodyObject);
+      if(other.rigiBodyObject.name === "Bush"){
+        console.log("Colisiono con el arbusto");
+      }
+    }
+
     return (
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
-        <RewardSpawner onCollect={handleCollect} />
         <KeyboardControls map={map}>
           <div>
             <HealthBar lives={lives} maxLives={maxLives} />
@@ -147,17 +153,20 @@ const toggleInstructions = () => {
               />
               <Physics debug={false}>
                 <World4 />
-                <Bush />
                 <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
+                <Bush />
                 <Ecctrl
                   camInitDis={-3}
                   camMaxDis={-3}
                   maxVelLimit={5}
                   jumpVel={4}
                   position={[0, 5, 0]}
+                  name = "Fox"
+                  onCollisionEnter={(e) => onCollisionFox(e)}
                 >
                   <Fox />
                 </Ecctrl>
+                <RewardSpawner onCollect={handleCollect}/>
               </Physics>
               <WelcomeText position={[0, 1, -2]} />
 
