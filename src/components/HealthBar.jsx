@@ -5,19 +5,24 @@ const HealthBar = ({ lives, maxLives }) => {
   const healthPercentage = (lives / maxLives) * 100;
 
   return (
-    <div style={{ display: "flex", alignItems: "center",position: 'absolute', top: '20px', right: '500px', zIndex: '9999' }}>
+    <div style={{ display: "flex", alignItems: "center", position: 'absolute', top: '20px', right: '500px', zIndex: '9999' }}>
       {/* Muestra los corazones */}
       {Array.from({ length: maxLives }, (_, index) => (
-        <div
-          key={index}
-          style={{
-            width: "20px",
-            height: "20px",
-            background: index < lives ? "red" : "transparent",
-            marginRight: "5px",
-            borderRadius: "50%",
-          }}
-        />
+        <div key={index} style={{ marginRight: "5px" }}>
+          {index < lives ? (
+            <img
+              src="/assets/images/corazonRojo.svg" // Ruta de la imagen de corazón lleno
+              alt="heart"
+              style={{ width: "20px", height: "20px" }}
+            />
+          ) : (
+            <img
+              src="/assets/images/corazonNegro.svg" // Ruta de la imagen de corazón vacío
+              alt="empty heart"
+              style={{ width: "20px", height: "20px" }}
+            />
+          )}
+        </div>
       ))}
       {/* Muestra la barra de progreso */}
       <div
@@ -41,5 +46,6 @@ const HealthBar = ({ lives, maxLives }) => {
 };
 
 export default HealthBar;
+
 
 

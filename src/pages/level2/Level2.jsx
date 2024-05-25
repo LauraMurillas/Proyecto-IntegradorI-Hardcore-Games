@@ -1,5 +1,5 @@
 import { Perf } from "r3f-perf";
-import { KeyboardControls, OrbitControls } from "@react-three/drei";
+import { ContactShadows, KeyboardControls, Loader, OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -9,57 +9,151 @@ import Environments from "./staging/Environments";
 import { Girl } from "./characters/girl/Girl";
 import { Canvas } from "@react-three/fiber";
 import World from "./world/World";
+import World2 from "./world/World2";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import RewardCounterDisplay from "./characters/rewards/RewardCountDisplay";
+import RewardSpawner from "./characters/rewards/rewardSpawner";
+import Dragon from "./Dragon";
+import Fox from "./characters/fox/Fox";
+import Lamp from "./characters/lamp/Lamp";
+import Level2Background from "./Level2Background";
+import HealthBar from '../../components/HealthBar';
+import { Fuego } from "./Fuego";
+import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
+
+
 
 export default function Level2() {
-  const [count,setCount]=useState(0)
+  const map = useMovements();
+  const [count, setCount] = useState(0);
   const [audio] = useState(new Audio("./assets/sounds/RuinasAudio.mp3"));
   const [userInteracted, setUserInteracted] = useState(false);
+  const [lives, setLives] = useState(5);
+  const maxLives = 5;
+  const [rewardCounters, setRewardCounters] = useState([]);
+  const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
+
+  
+
+  const handleCollect = (item) => {
+    console.log(`Collected ${item.name}`);
+    setRewardCounters((prevCounters) => ({
+      ...prevCounters,
+      [item.name]: (prevCounters[item.name] || 0) + 1
+    }));
+  };
+
+  const decreaseLives = () => {
+    if (lives > 0) {
+      setLives((prevLives) => {
+        const newLives = prevLives-1;
+        if(newLives === 0 ){
+          audioDerrota.play();
+          setTimeout(() => {
+            window.location.reload();
+          }, 3500);
+        }
+        return newLives;
+      });
+    }
+  };
 
   useEffect(() => {
     const handleInteraction = () => {
-        // Una vez que el usuario haya interactuado con la página,
-        // establecemos el estado userInteracted a true.
-        setUserInteracted(true);
+      setUserInteracted(true);
     };
 
-    // Agregamos un evento de clic para detectar la interacción del usuario.
     document.addEventListener("click", handleInteraction);
 
-    // Limpiamos el evento al desmontar el componente.
     return () => {
-        document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("click", handleInteraction);
     };
-}, []);
+  }, []);
 
-useEffect(() => {
-    // Reproducir el sonido si el usuario ha interactuado con la página.
+  useEffect(() => {
     if (userInteracted) {
-        audio.loop = true;
-        audio.play();
+      audio.loop = true;
+      audio.play();
     }
 
     return () => {
-        // Detener el sonido cuando el componente se desmonta.
-        audio.pause();
-        audio.currentTime = 0;
+      audio.pause();
+      audio.currentTime = 0;
     };
-}, [userInteracted]);
+  }, [userInteracted]);
+
+  const lampPositions = [
+    [0, -1, 0],
+    [0, -1, 5],
+    [0, -1, -5],
+    [5, -1, 0],
+    [-5, -1, 0],
+    [8, -1, -6],
+    [-8, -1, -6],
+    [15, -1, -6],
+
+    //tunel 1
+    [91, -1, 2],
+    [100, 6, 6],
+
+    //tunel principal
+    [8, -1, 2],
+    [13, -1, 2],
+    [18, -1, 2],
+    [24, -1, 2],
+    [28, -1, 2],
+    [32, -1, 2],
+    [37, -1, 2],
+    [41, -1, 2],
+    [45, -1, 2],
+    [47, -1, 2],
+  ];
 
   return (
-    
     <>
-       <Canvas>
-        <ambientLight />
-        <OrbitControls/>
-        <Suspense fallback={null}>
-          <World />
-        </Suspense>
-      </Canvas>
+      <KeyboardControls map={map}>
+      <div>
+          <HealthBar lives={lives} maxLives={maxLives} />
+        </div>
+      <Level2Background />
+        <Canvas camera={{ position: [0, 2, 0] }}>
+          <Lights />
+          <Perf position="top-left" />
+          <Suspense fallback={null}>
+            <Physics debug={false}>
+              <World2 />
+              <Ecctrl
+                camInitDis={-3}
+                camMaxDis={-3}
+                maxVelLimit={5}
+                jumpVel={4}
+                position={[35, 4, 4]}
+                name="Fox"
+                onCollisionEnter={({other}) => {
+                  if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon" || other.rigidBodyObject.name === "Fuego"){
+                    decreaseLives();
+                  }
+                }}
+              >
+                <Fox />
+              </Ecctrl>
+              <RewardSpawner onCollect={handleCollect}/>
+              <FireFlamesSpawner/>
+              <Dragon position={[-4, -18, 0]} />
+            </Physics>
+            <Controls />
+            {lampPositions.map((position, index) => (
+              <Lamp key={index} position={position} />
+            ))}
 
+          </Suspense>
+        </Canvas>
+        <Loader />
+      </KeyboardControls>
+      <RewardCounterDisplay rewardCounters={rewardCounters}/>
     </>
   );
 }

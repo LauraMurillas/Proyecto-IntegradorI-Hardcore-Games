@@ -1,4 +1,3 @@
-
 import { Perf } from "r3f-perf";
 import { ContactShadows, KeyboardControls, Loader, OrbitControls, Sparkles } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
@@ -29,10 +28,11 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
-    const [collectItems, setCollectedItems] = useState([]);
+    const foxBodyRef = useRef();
+
 
     const handleCollect = (item) => {
-      setCollectedItems((prevItems) => [...prevItems, item]);
+      console.log(`Collected ${item.name}`);
     };
   
 /**para l introduccion del juego */
@@ -82,7 +82,6 @@ const toggleInstructions = () => {
 
     return (
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
-        <RewardSpawner onCollect={handleCollect} />
         <KeyboardControls map={map}>
           <div>
             <HealthBar lives={lives} maxLives={maxLives} />
@@ -147,17 +146,24 @@ const toggleInstructions = () => {
               />
               <Physics debug={false}>
                 <World4 />
-                <Bush />
                 <ContactShadows scale={[16, 16]} opacity={(0, 42)} />
+                <Bush />
                 <Ecctrl
                   camInitDis={-3}
                   camMaxDis={-3}
                   maxVelLimit={5}
                   jumpVel={4}
                   position={[0, 5, 0]}
+                  name = "fox"
+                  onCollisionEnter={({other}) => {
+                    if(other.rigidBodyObject.name === "Bush"){
+                      console.log("Funciona");
+                    }
+                  }}
                 >
-                  <Fox />
+                  <Fox/>
                 </Ecctrl>
+                <RewardSpawner onCollect={handleCollect}/>
               </Physics>
               <WelcomeText position={[0, 1, -2]} />
 
