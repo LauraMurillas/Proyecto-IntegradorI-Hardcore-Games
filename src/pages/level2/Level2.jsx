@@ -119,12 +119,13 @@ export default function Level2() {
                 <Fox />
               </Ecctrl>
               <RewardSpawner onCollect={handleCollect}/>
+              <Dragon position={[-4, -18, 0]} />
             </Physics>
             <Controls />
             {lampPositions.map((position, index) => (
               <Lamp key={index} position={position} />
             ))}
-            <Dragon position={[0, 0, 0]} />
+           
           </Suspense>
         </Canvas>
         <Loader />
