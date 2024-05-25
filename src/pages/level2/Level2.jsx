@@ -21,6 +21,8 @@ import Fox from "./characters/fox/Fox";
 import Lamp from "./characters/lamp/Lamp";
 import Level2Background from "./Level2Background";
 import HealthBar from '../../components/HealthBar';
+import { Fuego } from "./Fuego";
+import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
 
 
 
@@ -111,7 +113,7 @@ export default function Level2() {
                 position={[0, 5, 0]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
-                  if(other.rigidBodyObject.name === "trampa"){
+                  if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon"){
                     decreaseLives();
                   }
                 }}
@@ -119,13 +121,13 @@ export default function Level2() {
                 <Fox />
               </Ecctrl>
               <RewardSpawner onCollect={handleCollect}/>
+              <FireFlamesSpawner/>
               <Dragon position={[-4, -18, 0]} />
             </Physics>
             <Controls />
             {lampPositions.map((position, index) => (
               <Lamp key={index} position={position} />
             ))}
-           
           </Suspense>
         </Canvas>
         <Loader />
