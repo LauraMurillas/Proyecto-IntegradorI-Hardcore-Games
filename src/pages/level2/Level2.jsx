@@ -8,15 +8,12 @@ import {
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
-import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
 import { Girl } from "./characters/girl/Girl";
 import { Canvas } from "@react-three/fiber";
-import World from "./world/World";
 import World2 from "./world/World2";
 import Controls from "./controls/Controls";
-import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import RewardCounterDisplay from "./characters/rewards/RewardCountDisplay";
@@ -112,7 +109,7 @@ export default function Level2() {
                 camMaxDis={-3}
                 maxVelLimit={5}
                 jumpVel={4}
-                position={[35, 4, 4]}
+                position={[0, 4, 0]}
                 name="Fox"
                 onCollisionEnter={({ other }) => {
                   if (
