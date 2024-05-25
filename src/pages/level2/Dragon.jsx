@@ -14,12 +14,13 @@ function Dragon(props) {
   const maxLives = 15;
   const healthBarPositionRef = useRef(new THREE.Vector3());
 
+  
   useEffect(() => {
     console.log('Available animations:', actions); // Agregar esto para ver las animaciones disponibles
     if (actions['Fly_New']) {
       actions['Fly_New'].play();
     } else {
-      console.warn('Animation "Fly_New" not found.');
+      console.log('Animation "Fly_New" not found.');
     }
   }, [actions]);
 
