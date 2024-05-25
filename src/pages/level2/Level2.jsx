@@ -13,9 +13,9 @@ import World2 from "./world/World2";
 import Controls from "./controls/Controls";
 import Avatar from "./characters/avatar/Avatar";
 import useMovements from "../../utils/key-movements";
-import RewardSpawner from "./characters/rewards/rewardSpawner";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import RewardCounterDisplay from "./characters/rewards/RewardCountDisplay";
+import RewardSpawner from "./characters/rewards/rewardSpawner";
 import Dragon from "./Dragon";
 import Fox from "./characters/fox/Fox";
 import Lamp from "./characters/lamp/Lamp";
@@ -107,6 +107,12 @@ export default function Level2() {
     [-1.145, 126.316, 0],
     [-1.145, 157.266, 0],
     [25.077, 1.456, -68.206],
+    [-1.145, 157.266, 0],
+    [0, 32.108, 0],
+    [-0.499, 63.741, 0],
+    [-0.499, 95.331, 0],
+    [-1.145, 126.316, 0],
+    [-1.145, 157.266, 0],
 
     //tunel principal
     [8, -1, 2],
@@ -124,7 +130,7 @@ export default function Level2() {
   return (
     <>
       <KeyboardControls map={map}>
-        <div>
+      <div>
           <HealthBar lives={lives} maxLives={maxLives} />
         </div>
       <Level2Background />
@@ -139,7 +145,7 @@ export default function Level2() {
                 camMaxDis={-3}
                 maxVelLimit={5}
                 jumpVel={4}
-                position={[45, 6, 4]}
+                position={[40, 6, 4]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
                   if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon"){
@@ -157,6 +163,7 @@ export default function Level2() {
             {lampPositions.map((position, index) => (
               <Lamp key={index} position={position} />
             ))}
+
           </Suspense>
         </Canvas>
         <Loader />
