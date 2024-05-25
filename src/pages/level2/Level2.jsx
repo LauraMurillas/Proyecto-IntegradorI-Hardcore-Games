@@ -17,6 +17,7 @@ import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import Dragon from "./Dragon";
 import Fox from "./characters/fox/Fox";
 import Lamp from "./characters/lamp/Lamp";
+import Level2Background from "./Level2Background";
 
 export default function Level2() {
   const map = useMovements();
@@ -59,6 +60,7 @@ export default function Level2() {
   return (
     <>
       <KeyboardControls map={map}>
+      <Level2Background />
         <Canvas camera={{ position: [0, 1, 0] }}>
           <Lights />
           <Perf position="top-left" />
