@@ -99,22 +99,6 @@ export default function Level2() {
     [91, -1, 2],
     [100, 6, 6],
 
-    [-0.499, 95.331, 0],
-    [-1.145, 126.316, 0],
-    [-1.145, 157.266, 0],
-    [0, 32.108, 0],
-    [-0.499, 63.741, 0],
-    [-0.499, 95.331, 0],
-    [-1.145, 126.316, 0],
-    [-1.145, 157.266, 0],
-    [25.077, 1.456, -68.206],
-    [-1.145, 157.266, 0],
-    [0, 32.108, 0],
-    [-0.499, 63.741, 0],
-    [-0.499, 95.331, 0],
-    [-1.145, 126.316, 0],
-    [-1.145, 157.266, 0],
-
     //tunel principal
     [8, -1, 2],
     [13, -1, 2],
@@ -146,7 +130,7 @@ export default function Level2() {
                 camMaxDis={-3}
                 maxVelLimit={5}
                 jumpVel={4}
-                position={[40, 4, 4]}
+                position={[35, 4, 4]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
                   if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon" || other.rigidBodyObject.name === "Fuego"){
