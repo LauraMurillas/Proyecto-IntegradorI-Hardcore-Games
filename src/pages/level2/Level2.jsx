@@ -36,6 +36,7 @@ export default function Level2() {
   const [rewardCounters, setRewardCounters] = useState([]);
   const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
 
+  
 
   const handleCollect = (item) => {
     console.log(`Collected ${item.name}`);
