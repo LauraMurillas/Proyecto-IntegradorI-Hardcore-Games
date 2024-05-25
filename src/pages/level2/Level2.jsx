@@ -146,7 +146,7 @@ export default function Level2() {
                 camMaxDis={-3}
                 maxVelLimit={5}
                 jumpVel={4}
-                position={[40, 6, 4]}
+                position={[40, 4, 4]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
                   if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon" || other.rigidBodyObject.name === "Fuego"){

@@ -23,7 +23,7 @@ export default function Fox() {
     <RigidBody ref={foxBodyRef} position={[0, 0, 0]} colliders={false} name='Fox'>
       <group ref={foxRef} name="Scene">
         <group
-          position={[0, -0.63, 0]}
+          position={[0, -0.5, 0]}
           rotation={[0.094, -Math.PI / 1.7, 0.094]}
           scale={0.01}
         >
