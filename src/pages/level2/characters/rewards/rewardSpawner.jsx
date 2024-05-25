@@ -24,7 +24,7 @@ const RewardSpawner = ({ onCollect }) => {
           setSpawnedItems((prevItems) =>
             prevItems.filter((item) => item.id !== id)
           );
-        }, 4000); // Tiempo para que desaparezca automáticamente después de 4 segundos
+        }, 6000); // Tiempo para que desaparezca automáticamente después de 4 segundos
       };
 
       const intervalId = setInterval(spawnIcon, getRandomInterval());
@@ -51,7 +51,7 @@ const RewardSpawner = ({ onCollect }) => {
   };
 
   const getRandomInterval = () => {
-    return Math.floor(Math.random() * 6000) + 6000;
+    return Math.floor(Math.random() * 2000) + 2000;
   };
 
   const getRandomPosition = () => {

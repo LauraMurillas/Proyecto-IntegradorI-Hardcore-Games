@@ -148,7 +148,7 @@ export default function Level2() {
                 position={[40, 6, 4]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
-                  if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon"){
+                  if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon" || other.rigidBodyObject.name === "Fuego"){
                     decreaseLives();
                   }
                 }}
