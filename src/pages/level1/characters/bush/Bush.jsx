@@ -7,8 +7,8 @@ export default function Bush(props) {
   const meshRef = useRef();
 
   return (
-    <group {...props} dispose={null} position={[3, 0.3, 0]} name="Bush">
-      <RigidBody type="fixed"> {/* Mantenemos el tipo como "static" para que el arbusto permanezca estático */}
+    <group {...props} dispose={null} position={[3, 0.3, 0]}>
+      <RigidBody type="fixed" name='Bush'>
         <mesh
           ref={meshRef}
           castShadow

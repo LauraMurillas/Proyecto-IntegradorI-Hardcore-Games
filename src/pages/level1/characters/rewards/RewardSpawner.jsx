@@ -29,7 +29,7 @@ const RewardSpawner = ({ onCollect }) => {
       const intervalId = setInterval(spawnIcon, getRandomInterval());
   
       // Cargar un ícono adicional después de 3 segundos
-      setTimeout(spawnIcon, 2000);
+      setTimeout(spawnIcon, 3000);
   
       return () => clearInterval(intervalId);
     };
@@ -45,7 +45,7 @@ const RewardSpawner = ({ onCollect }) => {
   };
 
   const getRandomInterval = () => {
-    return Math.floor(Math.random() * 5000) + 6000;
+    return Math.floor(Math.random() * 10000) + 8000;
   };
 
   const getRandomPosition = () => {
@@ -60,7 +60,7 @@ const RewardSpawner = ({ onCollect }) => {
       {spawnedItems.map((item) => (
         <item.Component
           key={item.id}
-          position={item.position}
+          position={item.position} /* item.position */
           scale={[0.5, 0.5, 0.5]}
           onClick={() => collectItem(item)}
         />
@@ -70,6 +70,3 @@ const RewardSpawner = ({ onCollect }) => {
 };
 
 export default RewardSpawner;
-
-
-

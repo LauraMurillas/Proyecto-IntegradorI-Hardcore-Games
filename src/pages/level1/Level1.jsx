@@ -20,7 +20,6 @@ import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import HealthBar from '../../components/HealthBar';
 import RewardSpawner from "./characters/rewards/RewardSpawner";
-import RewardIcons from "./characters/rewards/RewardIcons";
 
 export default function Level1() {
     const map = useMovements();
@@ -29,7 +28,7 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
-    const [collectItems, setCollectedItems] = useState([]);
+
 
     const handleCollect = (item) => {
       console.log(`Collected ${item.name}`);
@@ -80,9 +79,8 @@ const toggleInstructions = () => {
       }
     };
 
-    const onCollisionFox = ({other}) =>{
-      console.log(other.name);
-      if(other.rigiBodyObject.name === "Bush"){
+    const onCollisionFox = (e) =>{
+      if(e.rigidBodyObject.name === 'Bush'){
         console.log("Colisiono con el arbusto");
       }
     }
@@ -161,7 +159,7 @@ const toggleInstructions = () => {
                   maxVelLimit={5}
                   jumpVel={4}
                   position={[0, 5, 0]}
-                  name = "Fox"
+                  name = "fox"
                   onCollisionEnter={(e) => onCollisionFox(e)}
                 >
                   <Fox />
