@@ -2,13 +2,12 @@ import React, { useRef, useEffect } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 import { useFox } from '../../../../context/FoxContext';
-import { Vector3 } from 'three';
-
+import { useFrame } from '@react-three/fiber';
 
 export default function Fox() {
   const foxBodyRef = useRef();
   const foxRef = useRef();
-  const { fox, setFox } = useFox(); // Obtener la referencia y la función para establecer el zorro desde el contexto
+  const { fox, setFox } = useFox();
   const { nodes, materials, animations } = useGLTF('/assets/models/fox/Prueba2.glb');
   const { actions } = useAnimations(animations, foxRef);
 
@@ -19,9 +18,9 @@ export default function Fox() {
     };
   }, [actions, fox.animation]);
 
-  
+
   return (
-    <RigidBody ref={foxBodyRef} position={[0,0,0]} colliders={false} name='Fox'>
+    <RigidBody ref={foxBodyRef} position={[0, 0, 0]} colliders={false} name='Fox'>
       <group ref={foxRef} name="Scene">
         <group
           position={[0, -0.63, 0]}
@@ -42,6 +41,3 @@ export default function Fox() {
 }
 
 useGLTF.preload('/assets/models/fox/Prueba2.glb');
-
-
-

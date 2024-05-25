@@ -85,11 +85,40 @@ export default function Level2() {
   }, [userInteracted]);
 
   const lampPositions = [
-    [0, 2, 0],
-    [0, 2, 5],
-    [0, 2, -5],
-    [5, 2, 0],
-    [-5, 2, 0],
+    [0, -1, 0],
+    [0, -1, 5],
+    [0, -1, -5],
+    [5, -1, 0],
+    [-5, -1, 0],
+    [8, -1, -6],
+    [-8, -1, -6],
+    [15, -1, -6],
+
+    //tunel 1
+    [91, -1, 2],
+    [100, 6, 6],
+
+    [-0.499, 95.331, 0],
+    [-1.145, 126.316, 0],
+    [-1.145, 157.266, 0],
+    [0, 32.108, 0],
+    [-0.499, 63.741, 0],
+    [-0.499, 95.331, 0],
+    [-1.145, 126.316, 0],
+    [-1.145, 157.266, 0],
+    [25.077, 1.456, -68.206],
+
+    //tunel principal
+    [8, -1, 2],
+    [13, -1, 2],
+    [18, -1, 2],
+    [24, -1, 2],
+    [28, -1, 2],
+    [32, -1, 2],
+    [37, -1, 2],
+    [41, -1, 2],
+    [45, -1, 2],
+    [47, -1, 2],
   ];
 
   return (
@@ -99,7 +128,7 @@ export default function Level2() {
           <HealthBar lives={lives} maxLives={maxLives} />
         </div>
       <Level2Background />
-        <Canvas camera={{ position: [0, 1, 0] }}>
+        <Canvas camera={{ position: [0, 2, 0] }}>
           <Lights />
           <Perf position="top-left" />
           <Suspense fallback={null}>
@@ -110,7 +139,7 @@ export default function Level2() {
                 camMaxDis={-3}
                 maxVelLimit={5}
                 jumpVel={4}
-                position={[0, 5, 0]}
+                position={[45, 6, 4]}
                 name="Fox"
                 onCollisionEnter={({other}) => {
                   if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon"){

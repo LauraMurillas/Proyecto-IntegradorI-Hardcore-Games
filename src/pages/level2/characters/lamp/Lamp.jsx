@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { PointLight } from 'three';
 
 export default function Lamp(props) {
   const { nodes, materials } = useGLTF("/assets/models/lamp/lamp.glb");
@@ -14,7 +13,7 @@ export default function Lamp(props) {
       const lamp = lampRef.current;
 
       const updateLightPosition = () => {
-        light.position.copy(lamp.position);
+        light.position.set(lamp.position.x-1 , lamp.position.y + 3, lamp.position.z -4); // Adjust the y position to be above the lamp
       };
 
       const animate = () => {
@@ -52,11 +51,11 @@ export default function Lamp(props) {
       <pointLight
         ref={lightRef}
         color="#ffffff"
-        intensity={10}
-        distance={20}
-        decay={1}
+        intensity={5}  // Adjusted intensity
+        distance={50}  // Increased distance for more range
+        decay={2}
         castShadow
-        position={[0, 1, 0]} // Initial position relative to the lamp
+        position={[0, 0, 0]} // Position above the lamp
       />
     </group>
   );

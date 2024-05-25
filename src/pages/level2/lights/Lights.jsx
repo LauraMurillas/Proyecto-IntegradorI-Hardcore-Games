@@ -4,13 +4,13 @@ const Lights = () => {
     return (
         <>
             <ambientLight
-                intensity={0.2}  // Reducir la intensidad de la luz ambiental
+                intensity={2.5}  // Reducir la intensidad de la luz ambiental
             />
             <directionalLight
                 castShadow={true}
-                position={[2, 10, 0]}
+                position={[0, 0, 0]}
                 color={new Color("#555555")}  // Cambiar el color a un tono más oscuro
-                intensity={1}  // Reducir la intensidad
+                intensity={2}  // Reducir la intensidad
                 shadow-mapSize={[2048, 2048]}
                 shadow-camera-far={50}
                 shadow-camera-left={-10}
@@ -19,7 +19,7 @@ const Lights = () => {
                 shadow-camera-bottom={-10}
             />
             <spotLight
-                position={[5, 10, 5]}  // Posicionar la luz puntual
+                position={[0, 0, 0]}  // Posicionar la luz puntual
                 color={new Color("#8899FF")}  // Tono frío
                 intensity={0.5}  // Ajustar la intensidad
                 distance={100}

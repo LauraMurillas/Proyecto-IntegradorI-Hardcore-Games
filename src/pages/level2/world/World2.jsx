@@ -1,9 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
+import { PointLight } from 'three';
 
 export default function World2(props) {
   const { nodes, materials } = useGLTF("/assets/models/world/level2.glb");
+
+
   return (
     <group {...props} dispose={null}>
       <group
@@ -77,6 +80,7 @@ export default function World2(props) {
             position={[-1.145, 157.266, 0]}
           />
           </RigidBody>
+
           <RigidBody colliders="trimesh" type="fixed">
           <mesh
             castShadow
@@ -85,6 +89,7 @@ export default function World2(props) {
             material={materials.Material_003}
           />
           </RigidBody>
+
           <RigidBody colliders="trimesh" type="fixed">
           <mesh
             castShadow
