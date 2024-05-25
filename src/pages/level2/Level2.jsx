@@ -1,5 +1,10 @@
 import { Perf } from "r3f-perf";
-import { ContactShadows, KeyboardControls, Loader, OrbitControls } from "@react-three/drei";
+import {
+  ContactShadows,
+  KeyboardControls,
+  Loader,
+  OrbitControls,
+} from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect } from "react";
 import WelcomeText from "./abstractions/WelcomeText";
@@ -20,11 +25,9 @@ import Dragon from "./Dragon";
 import Fox from "./characters/fox/Fox";
 import Lamp from "./characters/lamp/Lamp";
 import Level2Background from "./Level2Background";
-import HealthBar from '../../components/HealthBar';
+import HealthBar from "../../components/HealthBar";
 import { Fuego } from "./Fuego";
 import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
-
-
 
 export default function Level2() {
   const map = useMovements();
@@ -36,21 +39,19 @@ export default function Level2() {
   const [rewardCounters, setRewardCounters] = useState([]);
   const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
 
-  
-
   const handleCollect = (item) => {
     console.log(`Collected ${item.name}`);
     setRewardCounters((prevCounters) => ({
       ...prevCounters,
-      [item.name]: (prevCounters[item.name] || 0) + 1
+      [item.name]: (prevCounters[item.name] || 0) + 1,
     }));
   };
 
   const decreaseLives = () => {
     if (lives > 0) {
       setLives((prevLives) => {
-        const newLives = prevLives-1;
-        if(newLives === 0 ){
+        const newLives = prevLives - 1;
+        if (newLives === 0) {
           audioDerrota.play();
           setTimeout(() => {
             window.location.reload();
@@ -90,35 +91,16 @@ export default function Level2() {
     [0, -1, 5],
     [0, -1, -5],
     [5, -1, 0],
-    [-5, -1, 0],
-    [8, -1, -6],
-    [-8, -1, -6],
-    [15, -1, -6],
 
-    //tunel 1
-    [91, -1, 2],
-    [100, 6, 6],
-
-    //tunel principal
-    [8, -1, 2],
-    [13, -1, 2],
-    [18, -1, 2],
-    [24, -1, 2],
-    [28, -1, 2],
-    [32, -1, 2],
-    [37, -1, 2],
-    [41, -1, 2],
-    [45, -1, 2],
-    [47, -1, 2],
   ];
 
   return (
     <>
       <KeyboardControls map={map}>
-      <div>
+        <div>
           <HealthBar lives={lives} maxLives={maxLives} />
         </div>
-      <Level2Background />
+        <Level2Background />
         <Canvas camera={{ position: [0, 2, 0] }}>
           <Lights />
           <Perf position="top-left" />
@@ -132,28 +114,31 @@ export default function Level2() {
                 jumpVel={4}
                 position={[35, 4, 4]}
                 name="Fox"
-                onCollisionEnter={({other}) => {
-                  if(other.rigidBodyObject.name === "trampa" || other.rigidBodyObject.name == "dragon" || other.rigidBodyObject.name === "Fuego"){
+                onCollisionEnter={({ other }) => {
+                  if (
+                    other.rigidBodyObject.name === "trampa" ||
+                    other.rigidBodyObject.name == "dragon" ||
+                    other.rigidBodyObject.name === "Fuego"
+                  ) {
                     decreaseLives();
                   }
                 }}
               >
                 <Fox />
               </Ecctrl>
-              <RewardSpawner onCollect={handleCollect}/>
-              <FireFlamesSpawner/>
+              <RewardSpawner onCollect={handleCollect} />
+              <FireFlamesSpawner />
               <Dragon position={[-4, -18, 0]} />
             </Physics>
             <Controls />
             {lampPositions.map((position, index) => (
               <Lamp key={index} position={position} />
             ))}
-
           </Suspense>
         </Canvas>
         <Loader />
       </KeyboardControls>
-      <RewardCounterDisplay rewardCounters={rewardCounters}/>
+      <RewardCounterDisplay rewardCounters={rewardCounters} />
     </>
   );
 }

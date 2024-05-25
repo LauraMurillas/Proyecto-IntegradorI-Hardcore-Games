@@ -4,7 +4,7 @@ const Lights = () => {
     return (
         <>
             <ambientLight
-                intensity={2.5}  // Reducir la intensidad de la luz ambiental
+                intensity={4}  // Reducir la intensidad de la luz ambiental
             />
             <directionalLight
                 castShadow={true}
