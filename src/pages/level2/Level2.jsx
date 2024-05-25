@@ -128,7 +128,7 @@ export default function Level2() {
               </Ecctrl>
               <RewardSpawner onCollect={handleCollect} />
               <FireFlamesSpawner />
-              <Dragon position={[-4, -18, 0]} />
+              <Dragon position={[-4, -7, 0]} />
             </Physics>
             <Controls />
             {lampPositions.map((position, index) => (
