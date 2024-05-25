@@ -17,37 +17,47 @@ export function snowFlake({onClick, ... props}) {
 
 
   return (
-    <group {...props} dispose={null} ref={meshRef}>
+    <group {...props} dispose={null} ref={meshRef} scale={0.03}>
       <RigidBody type='fixed' name='snowFlake'>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Snowflake_Mat_Particles_0.geometry}
         material={materials.Mat_Particles}
+        scale={0.03}
+        onClick={onClick}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Snowflake_Mat_Snowflake_0.geometry}
         material={materials.Mat_Snowflake}
+        scale={0.03}
+        onClick={onClick}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Snowflake_Mat_Snowflake_0_1.geometry}
         material={materials.Mat_Snowflake}
+        scale={0.03}
+        onClick={onClick}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Snowflake_Mat_Snowflake_0_2.geometry}
         material={materials.Mat_Snowflake}
+        scale={0.03}
+        onClick={onClick}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Snowflake_Mat_Snowflake_0_3.geometry}
         material={materials.Mat_Snowflake}
+        scale={0.03}
+        onClick={onClick}
       />
       </RigidBody>
     </group>

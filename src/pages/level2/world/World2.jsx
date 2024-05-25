@@ -1559,7 +1559,7 @@ export default function World2(props) {
         scale={[0.061, 0.033, 0.033]}
       />
       </RigidBody>
-      <RigidBody colliders="trimesh" type="fixed">
+      <RigidBody colliders="trimesh" type="fixed" name="trampa">
       <mesh
         castShadow
         receiveShadow
@@ -1570,7 +1570,7 @@ export default function World2(props) {
         position={[-6, -0.016, -6]}
       />
       </RigidBody>
-      <RigidBody colliders="trimesh" type="fixed">
+      <RigidBody colliders="trimesh" type="fixed" name="trampa">
       <mesh
         castShadow
         receiveShadow
@@ -1581,7 +1581,7 @@ export default function World2(props) {
         position={[-6, -0.021, 6]}
       />
       </RigidBody>
-      <RigidBody colliders="trimesh" type="fixed">
+      <RigidBody colliders="trimesh" type="fixed" name="trampa">
       <mesh
         castShadow
         receiveShadow
@@ -1592,7 +1592,7 @@ export default function World2(props) {
         position={[6, -0.013, -6]}
       />
       </RigidBody>
-      <RigidBody colliders="trimesh" type="fixed">
+      <RigidBody colliders="trimesh" type="fixed" name="trampa">
       <mesh
         castShadow
         receiveShadow

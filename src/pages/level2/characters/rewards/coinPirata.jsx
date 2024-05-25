@@ -15,7 +15,7 @@ export function coinPirata({onClick, ... props}) {
 
   return (
     <group {...props} dispose={null}>
-        <RigidBody>
+        <RigidBody type='fixed' name='CoinPirata'>
             <mesh
             ref={meshRef}
             castShadow
@@ -24,6 +24,7 @@ export function coinPirata({onClick, ... props}) {
             material={materials.lambert1}
             rotation={[-Math.PI / 2, 0, 0]} // Rotación para poner la moneda en vertical
             onClick={onClick}
+            scale={0.1}
             />
         </RigidBody>
     </group>

@@ -17,14 +17,15 @@ export function potion({onClick, ...props}) {
   return (
     <group {...props} dispose={null} ref={meshRef}>
         <RigidBody type='fixed' name='Potion'>
-        <group scale={0.01}>
+        <group scale={0.5}>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.Potion_Low001_Neon_0.geometry}
           material={materials.Neon}
           rotation={[-Math.PI / 2, 0, 0]}
-          scale={100}
+          scale={0.5}
+          onClick={onClick}
         />
         <mesh
           castShadow
@@ -32,7 +33,8 @@ export function potion({onClick, ...props}) {
           geometry={nodes.Potion_Low002_Potion_0.geometry}
           material={materials.Potion}
           rotation={[-Math.PI / 2, 0, 0]}
-          scale={100}
+          scale={0.5}
+          
         />
         <mesh
           castShadow
@@ -40,7 +42,7 @@ export function potion({onClick, ...props}) {
           geometry={nodes.Potion_Low003_Glass_0.geometry}
           material={materials.Glass}
           rotation={[-Math.PI / 2, 0, 0]}
-          scale={100}
+          scale={0.5}
         />
       </group>
         </RigidBody>

@@ -16,7 +16,7 @@ export function bullet({onClick,...props}) {
   return (
     <group {...props} dispose={null} ref={meshRef}>
       <RigidBody type='fixed' name='Bullet'>
-        <group position={[-34.367, 3.086, 2.016]} rotation={[0, -Math.PI / 2, 0]} scale={1.029}>
+        <group rotation={[Math.PI / 2, 0, 0]} scale={0.0005}>
             <mesh
             castShadow
             receiveShadow
