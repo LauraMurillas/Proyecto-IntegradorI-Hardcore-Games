@@ -18,6 +18,7 @@ export default function Fox() {
       if (actions[fox.animation]) actions[fox.animation].fadeOut(0.5);
     };
   }, [actions, fox.animation]);
+  
 
   
   return (

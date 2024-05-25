@@ -28,6 +28,7 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
+    const foxBodyRef = useRef();
 
 
     const handleCollect = (item) => {
@@ -78,12 +79,6 @@ const toggleInstructions = () => {
         setLives((prevLives) => prevLives - 1);
       }
     };
-
-    const onCollisionFox = (e) =>{
-      if(e.rigidBodyObject.name === 'Bush'){
-        console.log("Colisiono con el arbusto");
-      }
-    }
 
     return (
       <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
@@ -160,9 +155,13 @@ const toggleInstructions = () => {
                   jumpVel={4}
                   position={[0, 5, 0]}
                   name = "fox"
-                  onCollisionEnter={(e) => onCollisionFox(e)}
+                  onCollisionEnter={({other}) => {
+                    if(other.rigidBodyObject.name === "Bush"){
+                      console.log("Funciona");
+                    }
+                  }}
                 >
-                  <Fox />
+                  <Fox/>
                 </Ecctrl>
                 <RewardSpawner onCollect={handleCollect}/>
               </Physics>
