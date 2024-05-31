@@ -20,6 +20,7 @@ import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import HealthBar from '../../components/HealthBar';
 import RewardSpawner from "./characters/rewards/RewardSpawner";
+import Checkpoint from '../../../checkpoint/Checkpoint'
 
 export default function Level1() {
     const map = useMovements();
@@ -136,6 +137,7 @@ const toggleInstructions = () => {
             <Suspense fallback={null}>
               <Lights />
               <Environments />
+              <Checkpoint />
               <Sparkles
                 color="white"
                 count={150}

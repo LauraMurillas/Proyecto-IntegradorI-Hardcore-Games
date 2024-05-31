@@ -1,12 +1,53 @@
 import { useGLTF } from "@react-three/drei"
-import { CuboidCollider, CylinderCollider, RigidBody } from "@react-three/rapier"
+import { CuboidCollider, CylinderCollider, RigidBody, interactionGroups } from "@react-three/rapier"
 
 export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/models/world/WorldSquidGames.glb")
 
+    const Limits = () => {
+        const { nodes } = useGLTF('/assets/models/worldLevelOne/LevelOne.glb')
+      
+        const geometries = [
+          nodes.Limit.geometry,
+          nodes.Limit001.geometry,
+          nodes.Limit002.geometry,
+          nodes.Limit003.geometry,
+          nodes.Limit004.geometry,
+          nodes.Limit005.geometry,
+          nodes.Limit006.geometry,
+          nodes.Limit007.geometry,
+          nodes.Limit008.geometry,
+          nodes.Limit009.geometry,
+          nodes.Limit010.geometry,
+          nodes.Limit011.geometry,
+          nodes.Limit012.geometry,
+          nodes.Limit013.geometry,
+        ]
+      
+        const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
+      
+        return (
+          <>
+            {geometries.map((geometry, index) => (
+              <mesh
+                key={index}
+                castShadow
+                receiveShadow
+                geometry={geometry}
+                material={transparentMaterial}
+              />
+            ))}
+          </>
+        )
+    }
+
     return (
         <group {...props} dispose={null}>
             <group>
+                
+                <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>
+                    <Limits />
+                </RigidBody>
                 <RigidBody colliders="trimesh" type="fixed">
                     <mesh onClick={(e) => e.stopPropagation()} geometry={nodes.Walls.geometry} material={materials.wallMaterial} />
                 </RigidBody>
