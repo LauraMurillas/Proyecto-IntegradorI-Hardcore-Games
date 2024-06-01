@@ -25,7 +25,7 @@ import Level2Background from "./Level2Background";
 import HealthBar from "../../components/HealthBar";
 import { Fuego } from "./Fuego";
 import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
-import Checkpoint from '../../../checkpoint/Checkpoint'
+import Checkpoint from "./checkpoint/Checkpoint";
 
 export default function Level2() {
   const map = useMovements();
