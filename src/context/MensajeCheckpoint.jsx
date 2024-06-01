@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from 'react'
 
-const MensajeContext = createContext(null)
+const MensajeContext = createContext()
 
 const initialState = {
   isOpenDialog: false,

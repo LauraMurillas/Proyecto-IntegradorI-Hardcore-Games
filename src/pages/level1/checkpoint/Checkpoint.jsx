@@ -3,7 +3,7 @@ import Checkpoints from '../../../checkpoints/Checkpoints'
 import { useDialog } from '../../../context/MensajeCheckpoint'
 import { useAuth } from '../../../context/AutenticacionContext'
 
-const Checkpoints = () => {
+const Checkpoint = () => {
   const { openDialog, closeDialog } = useDialog()
   const { checkpointLevelOne, onTakeCheckpoint } = useAuth()
 

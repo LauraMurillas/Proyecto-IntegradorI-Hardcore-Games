@@ -20,6 +20,12 @@ Debes tener instalado:
 ### Comandos para ejecutar el juego:
 
 ```
+npm install
+
+npm run build 
+
+crtl +C
+
 npm run dev
 ```
 

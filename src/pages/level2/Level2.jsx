@@ -27,6 +27,9 @@ import { Fuego } from "./Fuego";
 import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
 import Checkpoint from "./checkpoint/Checkpoint";
 
+
+
+
 export default function Level2() {
   const map = useMovements();
   const [count, setCount] = useState(0);

@@ -1,7 +1,7 @@
 'use strict'
 
 import { collection,  getDocs,  addDoc,  query,  where,  updateDoc } from 'firebase/firestore'
-import { db } from '../firebase-config'
+import { db } from './firebase'
 
 const userCollection = collection(db, 'users')
 
