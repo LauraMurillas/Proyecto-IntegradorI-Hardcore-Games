@@ -5,16 +5,16 @@ import { useAuth } from '../../../../providers/auth/AuthProvider'
 
 const Checkpoints = () => {
   const { openDialog, closeDialog } = useDialog()
-  const { checkpointLevelOne, onTakeCheckpoint } = useAuth()
+  const { checkpointLevelTwo, onTakeCheckpoint } = useAuth()
 
   const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
-    onTakeCheckpoint('level_one', numberCheckpoint, position)
+    onTakeCheckpoint('level_two', numberCheckpoint, position)
   }
 
   const handleOpenDialogInRange = () => {
     openDialog(
-      '!Este es un checkpoint! Presiona la tecla <strong>E</strong> para guardarlo',
-      'checkpoint'
+        '!Este es un checkpoint! Presiona la tecla  <strong>E</strong> para guardarlo',
+        'checkpoint'
     )
   }
 
@@ -37,31 +37,31 @@ const Checkpoints = () => {
     <>
       <Checkpoints
         numberCheckpoint={1}
-        itsTaken={checkpointLevelOne[1]}
-        position={[-4.16052, 1, -39.8772]}
+        itsTaken={checkpointLevelTwo[1]}
+        position={[-1, 0, -29.5]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
 
       <Checkpoints
         numberCheckpoint={2}
-        itsTaken={checkpointLevelOne[2]}
-        position={[5.84319, 1, -54.4298]}
+        itsTaken={checkpointLevelTwo[2]}
+        position={[-4, 0, -48]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoints
         numberCheckpoint={3}
-        itsTaken={checkpointLevelOne[3]}
-        position={[14.2202, -1.73976, 1.8868]}
+        itsTaken={checkpointLevelTwo[3]}
+        position={[25, 0, -73]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
 
       <Checkpoints
         numberCheckpoint={4}
-        itsTaken={checkpointLevelOne[4]}
-        position={[0, 1, -88.9431]}
+        itsTaken={checkpointLevelTwo[4]}
+        position={[-5.5, 0, -96]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />

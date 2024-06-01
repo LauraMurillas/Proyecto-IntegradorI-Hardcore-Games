@@ -25,6 +25,7 @@ import Level2Background from "./Level2Background";
 import HealthBar from "../../components/HealthBar";
 import { Fuego } from "./Fuego";
 import FireFlamesSpawner from "./characters/rewards/FireFlamesSpawner";
+import Checkpoint from '../../../checkpoint/Checkpoint'
 
 export default function Level2() {
   const map = useMovements();
@@ -100,6 +101,7 @@ export default function Level2() {
         <Level2Background />
         <Canvas camera={{ position: [0, 2, 0] }}>
           <Lights />
+          <Checkpoint />
           <Perf position="top-left" />
           <Suspense fallback={null}>
             <Physics debug={false}>

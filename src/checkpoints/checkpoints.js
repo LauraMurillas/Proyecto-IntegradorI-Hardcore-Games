@@ -12,7 +12,7 @@ const Checkpoint = (props) => {
   const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, dialogs } = props
 
   // Importamos el modelo GLB
-  const { nodes, materials } = useGLTF(
+  const { nodes, materials } = useGLTF( 
     '/assets/models/ringCheckpoint/MagicRing.glb'
   )
 
