@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Checkpoints from '../../../checkpoints/Checkpoints'
 import { useDialog } from '../../../context/MensajeCheckpoint'
-import { useAuth } from '../../../../providers/auth/AuthProvider'
+import { useAuth } from '../../../context/AutenticacionContext'
 
 const Checkpoints = () => {
   const { openDialog, closeDialog } = useDialog()
