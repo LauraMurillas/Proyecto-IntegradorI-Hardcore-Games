@@ -40,7 +40,7 @@ export default function Level2() {
     console.log(`Collected ${item.name}`);
     setRewardCounters((prevCounters) => ({
       ...prevCounters,
-      [item.name]: (prevCounters[item.name] || 0) + 1,
+      [item.name]: (prevCounters[item.name] || 0) + 1
     }));
   };
 
