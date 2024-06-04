@@ -2,13 +2,14 @@ import { Perf } from "r3f-perf";
 import { KeyboardControls, OrbitControls } from "@react-three/drei";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useState, useEffect } from "react";
+import Fox from "./characters/fox/Fox";
 import WelcomeText from "./abstractions/WelcomeText";
 import RedMen from "./characters/redMen/RedMen";
 import Lights from "./lights/Lights";
 import Environments from "./staging/Environments";
 import { Girl } from "./characters/girl/Girl";
 import { Canvas } from "@react-three/fiber";
-import World from "./world/World";
+import { World } from "./world/World";
 import Controls from "./controls/Controls";
 import useMovements from "../../utils/key-movements";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
@@ -51,15 +52,26 @@ export default function Level3() {
 
     return (
         <KeyboardControls map={map}>
-            <Canvas>
-                <ambientLight intensity={0.5}/>
-                <spotLight position={[10,10,10]} angle={0.15} penumbra={1}/>
-                <Environments/>
-                <Suspense fallback={null}>
-                    <World scale={[10,10,10]}/>
-                    <WelcomeText position={[0, 1, 2]} />
-                </Suspense>
+            <Canvas camera={{ position: [0, 2, 0] }}>
+            <Lights />
+            <Environments />
+            <Perf position="top-left" />
+            <Suspense fallback={null}>
+                <Physics debug={false}>
+                    <World scale={[200,200,200]}/>
+                    <Ecctrl
+                        camInitDis={-3}
+                        camMaxDis={-3}
+                        maxVelLimit={5}
+                        jumpVel={4}
+                        position={[38,1,1]}
+                    >
+                        <Fox/>
+                    </Ecctrl>
+                </Physics>
+                <WelcomeText position={[0, 1, 2]} />
                 <Controls/>
+                </Suspense>
             </Canvas>   
         </KeyboardControls>
     )
