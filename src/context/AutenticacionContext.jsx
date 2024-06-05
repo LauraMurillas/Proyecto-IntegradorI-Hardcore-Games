@@ -1,11 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import { auth } from '../db/firebase'
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from 'firebase/auth'
+import {  onAuthStateChanged,  signInWithEmailAndPassword,  createUserWithEmailAndPassword,  signOut } from 'firebase/auth'
 
 import { createUser, getUser, updateUser } from '../db/user-collection'
 

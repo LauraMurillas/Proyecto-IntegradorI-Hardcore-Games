@@ -12,13 +12,27 @@ const Checkpoints = (props) => {
   const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, dialogs } = props
 
   // Importamos el modelo GLB
-  const { nodes, materials } = useGLTF( 
-    '/assets/models/ringCheckpoint/MagicRing.glb'
-  )
+  const { nodes, materials } = useGLTF('/public/assets/models/ringCheckpoint/MagicRing.glb')
 
   const refCheckpoint = useRef()
 
   const [isInRange, setIsInRange] = useState(false)
+
+  // Cuando el jugador recoge el checkpoint muestra un mensaje en pantalla
+  // Y recoge el id y la posicion del checkpoint
+  const onTakeCheckpoint = (event) => {
+    if (event.keyCode === 69 && isInRange) {
+      const position = {
+        x: refCheckpoint.current.translation().x,
+        y: 10,
+        z: refCheckpoint.current.translation().z - 2,
+      }
+
+      handleOnTakeCheckpoint(numberCheckpoint, position)
+      setIsInRange(false)
+      dialogs.handleOpenDialogTakeIt()
+    }
+  }
 
   useEffect(() => {
     window.addEventListener('keydown', onTakeCheckpoint)
@@ -49,21 +63,6 @@ const Checkpoints = (props) => {
     }
   }
 
-  // Cuando el jugador recoge el checkpoint muestra un mensaje en pantalla
-  // Y recoge el id y la posicion del checkpoint
-  const onTakeCheckpoint = (event) => {
-    if (event.keyCode === 69 && isInRange) {
-      const position = {
-        x: refCheckpoint.current.translation().x,
-        y: 10,
-        z: refCheckpoint.current.translation().z - 2,
-      }
-
-      handleOnTakeCheckpoint(numberCheckpoint, position)
-      setIsInRange(false)
-      dialogs.handleOpenDialogTakeIt()
-    }
-  }
 
   return (
     <RigidBody

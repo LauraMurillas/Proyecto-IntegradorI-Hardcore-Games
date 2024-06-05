@@ -5,7 +5,7 @@ export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/models/world/WorldSquidGames.glb")
 
     const Limits = () => {
-        const { nodes } = useGLTF('/assets/models/worldLevelOne/LevelOne.glb')
+        const { nodes } = useGLTF("/assets/models/world/WorldSquidGames.glb")
       
         const geometries = [
           nodes.Limit.geometry,

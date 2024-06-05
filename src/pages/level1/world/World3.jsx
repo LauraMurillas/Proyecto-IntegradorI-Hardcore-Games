@@ -67,6 +67,30 @@ export default function World3(props) {
         geometry={nodes.Arbustos3.geometry}
         material={materials.Paporotnik}
       />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Checkpoint001.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Checkpoint003.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Checkpoint004.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Checkpoint002.geometry}
+        material={materials.Stone}
+      />
 
 
         <RigidBody colliders="trimesh" type="fixed">

@@ -12,8 +12,7 @@ const Checkpoint = () => {
   }
 
   const handleOpenDialogInRange = () => {
-    openDialog(
-      '!Este es un checkpoint! Presiona la tecla <strong>E</strong> para guardarlo',
+    openDialog('!Este es un checkpoint! Presiona la tecla <strong>E</strong> para guardarlo',
       'checkpoint'
     )
   }
