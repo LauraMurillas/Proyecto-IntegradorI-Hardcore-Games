@@ -1,13 +1,16 @@
+import { AuthProvider } from "./context/AutenticacionContext";
 import { AvatarProvider } from "./context/AvatarContext";
 import { FoxProvider } from "./context/FoxContext";
 import RoutesGabrielGame from "./routes/RoutesGabrielGame"
 
 const Experience = () => {
     return (
-        <FoxProvider>
-            <RoutesGabrielGame />
+        <AuthProvider>
+            <FoxProvider>
+                <RoutesGabrielGame />
         
-        </FoxProvider>
+            </FoxProvider>
+        </AuthProvider>    
     )
 }
 

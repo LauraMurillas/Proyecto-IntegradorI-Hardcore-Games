@@ -1,10 +1,14 @@
 import "./stylesLogin.css";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../context/AutenticacionContext";
+
 export default function Login() {
 
     const navigate = useNavigate();
 
-    const onHandleButtonStart = () => {
+    const auth = useAuth();
+
+    const onHandleButtonStart = async () => {
         navigate('/level1');
     };
 

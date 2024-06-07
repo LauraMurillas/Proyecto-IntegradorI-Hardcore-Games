@@ -25,6 +25,7 @@ import Checkpoint from "./checkpoint/Checkpoint";
 
 
 
+
 export default function Level1() {
     const map = useMovements();
     const audioRef = useRef(new Audio("./assets/sounds/BosqueEncantadoAudio.mp3"));

@@ -1,10 +1,25 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-import { auth } from '../db/firebase'
-import {  onAuthStateChanged,  signInWithEmailAndPassword,  createUserWithEmailAndPassword,  signOut } from 'firebase/auth'
+import { auth } from '../db/firebase-config'
+
+import {  onAuthStateChanged,  
+  signInWithEmailAndPassword,  
+  createUserWithEmailAndPassword,  
+  signOut, 
+  GoogleAuthProvider, 
+  signInWithPopup } from 'firebase/auth'
 
 import { createUser, getUser, updateUser } from '../db/user-collection'
 
-const AuthContext = createContext(null)
+const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}
+
 
 const actionTypes = {
   LOGIN: 'LOGIN',
@@ -72,6 +87,18 @@ export const AuthProvider = ({ children }) => {
     }
   }, [])
 
+  const loginWithGoogle = async () => {
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const res = await signInWithPopup(auth, provider);
+      return res;
+  } catch (error) {
+      return error;
+  }
+
+  }
+
   const login = async (email, password) => {
     try {
       dispatch({ type: actionTypes.SET_LOADING, payload: true })
@@ -90,6 +117,8 @@ export const AuthProvider = ({ children }) => {
       return { success: false, error }
     }
   }
+
+  
 
   const register = async (userData) => {
     try {
@@ -133,8 +162,8 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  
   /*
-
   const onCollect = (level, collectible) => {
     const _user = { ...state.user }
     _user[level][collectible] = true
@@ -189,6 +218,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         state,
         dispatch,
+        loginWithGoogle,
         ...values,
         ...functions,
       }}
@@ -196,12 +226,5 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-}
 
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
 }
