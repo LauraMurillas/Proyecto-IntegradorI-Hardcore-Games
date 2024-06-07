@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
 const Checkpoints = (props) => {
-  const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, dialogs } = props
+  const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, position } = props
 
   // Importamos el modelo GLB
   const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/MagicRing.glb');
@@ -30,7 +30,7 @@ const Checkpoints = (props) => {
 
       handleOnTakeCheckpoint(numberCheckpoint, position)
       setIsInRange(false)
-      dialogs.handleOpenDialogTakeIt()
+      //dialogs.handleOpenDialogTakeIt()
     }
   }
 
@@ -75,13 +75,13 @@ const Checkpoints = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Checkpoint002_1.geometry}
+        geometry={nodes.Checkpoints002_1.geometry}
         material={itsTaken ? materials.StoneGold : materials.Stone}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Checkpoint002_2.geometry}
+        geometry={nodes.Checkpoints002_2.geometry}
         material={itsTaken ? materials.StoneGold : materials.Stone}
       />
     </RigidBody>
