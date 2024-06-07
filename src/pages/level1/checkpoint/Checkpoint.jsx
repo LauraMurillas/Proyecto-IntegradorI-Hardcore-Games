@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import Checkpoints from '../../../checkpoints/Checkpoints'
-import { useDialog } from '../../../context/MensajeCheckpoint'
+//import { useDialog } from '../../../context/MensajeCheckpoint'
 import { useAuth } from '../../../context/AutenticacionContext'
 
 const Checkpoint = () => {
+
   //const { openDialog, closeDialog } = useDialog()
-  const { checkpointLevelOne, onTakeCheckpoint } = useAuth()
+  const checkpointLevelOne = useAuth()
+  const onTakeCheckpoint = useAuth()
 
   const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
     onTakeCheckpoint('level_one', numberCheckpoint, position)
   }
-
 
   /*
   const handleOpenDialogInRange = () => {
@@ -33,7 +34,8 @@ const Checkpoint = () => {
     handleOpenDialogTaken,
     closeDialog,
   }
-  */
+  */  
+  
 
   return (
     <>

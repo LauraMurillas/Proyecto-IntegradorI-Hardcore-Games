@@ -12,7 +12,7 @@ const Checkpoints = (props) => {
   const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, dialogs } = props
 
   // Importamos el modelo GLB
-  const { nodes, materials } = useGLTF('/public/assets/models/ringCheckpoint/MagicRing.glb')
+  const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/MagicRing.glb');
 
   const refCheckpoint = useRef()
 
@@ -30,7 +30,7 @@ const Checkpoints = (props) => {
 
       handleOnTakeCheckpoint(numberCheckpoint, position)
       setIsInRange(false)
-      //dialogs.handleOpenDialogTakeIt()
+      dialogs.handleOpenDialogTakeIt()
     }
   }
 
@@ -46,11 +46,11 @@ const Checkpoints = (props) => {
     if (e.rigidBodyObject.name === 'playerBody') {
       if (itsTaken) {
         setIsInRange(false)
-        //dialogs.handleOpenDialogTaken()
+        dialogs.handleOpenDialogTaken()
         return
       }
 
-      //dialogs.handleOpenDialogInRange()
+      dialogs.handleOpenDialogInRange()
       setIsInRange(true)
     }
   }
@@ -58,7 +58,7 @@ const Checkpoints = (props) => {
 
   const onExitCollisionCheckpoint = (e) => {
     if (e.rigidBodyObject.name === 'playerBody') {
-      //dialogs.closeDialog()
+      dialogs.closeDialog()
       setIsInRange(false)
     }
   }
@@ -87,5 +87,8 @@ const Checkpoints = (props) => {
     </RigidBody>
   )
 }
+
+useGLTF.preload('/assets/models/ringCheckpoint/MagicRing.glb');
+
 
 export default Checkpoints
