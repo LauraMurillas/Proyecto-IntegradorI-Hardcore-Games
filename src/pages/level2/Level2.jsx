@@ -123,7 +123,7 @@ export default function Level2() {
                     other.rigidBodyObject.name === "Fuego"
                   ) {
                     decreaseLives();
-                  }
+                  } 
                 }}
               >
                 <Fox />

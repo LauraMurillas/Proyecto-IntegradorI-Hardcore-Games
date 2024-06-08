@@ -141,9 +141,7 @@ const toggleInstructions = () => {
             <Suspense fallback={null}>
               <Lights />
               <Environments />
-            
-              
-              
+
               <Sparkles
                 color="white"
                 count={150}
@@ -166,6 +164,10 @@ const toggleInstructions = () => {
                   onCollisionEnter={({other}) => {
                     if(other.rigidBodyObject.name === "Bush"){
                       console.log("Funciona");
+                    }
+                    if (other.rigidBodyObject.name == "Checkpoint") {
+                      Checkpoint.itsTaken
+                      console.log("checkpoint guardado")
                     }
                   }}
                 >
