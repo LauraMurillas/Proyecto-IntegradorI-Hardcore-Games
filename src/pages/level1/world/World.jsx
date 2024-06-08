@@ -4,6 +4,7 @@ import { CuboidCollider, CylinderCollider, RigidBody, interactionGroups } from "
 export default function World(props) {
     const { nodes, materials } = useGLTF("/assets/models/world/WorldSquidGames.glb")
 
+    /*
     const Limits = () => {
         const { nodes } = useGLTF("/assets/models/world/WorldSquidGames.glb")
       
@@ -40,14 +41,11 @@ export default function World(props) {
           </>
         )
     }
+    */    
 
     return (
         <group {...props} dispose={null}>
             <group>
-                
-                <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>
-                    <Limits />
-                </RigidBody>
                 <RigidBody colliders="trimesh" type="fixed">
                     <mesh onClick={(e) => e.stopPropagation()} geometry={nodes.Walls.geometry} material={materials.wallMaterial} />
                 </RigidBody>

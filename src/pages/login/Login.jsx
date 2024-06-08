@@ -8,9 +8,17 @@ export default function Login() {
 
     const auth = useAuth();
 
+    const onHandleButtonLogin = async () => {
+        await auth.loginWithGoogle()
+        .then((res)=>navigate('/level1'))
+        .catch((error)=>console.error(error))
+    }
+
+    /*
     const onHandleButtonStart = async () => {
         navigate('/level1');
     };
+    */
 
     return (
         <div className="container">
@@ -24,8 +32,8 @@ export default function Login() {
                 <div className="Gabriel-text-secondary">
                     Elena's Rescue<br/><br/>
                 </div>
-                <div onClick={onHandleButtonStart} className="button-start">
-                    <button>Empezar</button>
+                <div onClick={onHandleButtonLogin} className="button-login">
+                    <button>Iniciar sesion</button>
                 </div>
             </div>
         </div>

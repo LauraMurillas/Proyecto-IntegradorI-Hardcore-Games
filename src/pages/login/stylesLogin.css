@@ -47,7 +47,7 @@
     margin-bottom: 20px; 
 }
 
-.button-start > button {
+.button-login > button {
     color: white;
     background-color: red;
     font-weight: bold;
@@ -60,15 +60,15 @@
     text-align: center;
 }
 
-.button-start > button:hover {
+.button-login > button:hover {
     background-color: #FF5757;
 }
 
-.button-start > button:active {
+.button-login > button:active {
     background-color: #920A0A;
 }
 
-.button-start > button:disabled {
+.button-login > button:disabled {
     background-color: #fde6e7;
     cursor: not-allowed;
 }
