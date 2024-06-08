@@ -58,7 +58,7 @@ const Checkpoints = (props) => {
 
   const onExitCollisionCheckpoint = (e) => {
     if (e.rigidBodyObject.name === 'Fox') {
-      dialogs.closeDialog()
+      //dialogs.closeDialog()
       setIsInRange(false)
     }
   }
@@ -66,7 +66,7 @@ const Checkpoints = (props) => {
 
   return (
     <RigidBody
-      type="fixed"
+      type="fixed" name='Checkpoint'
       onCollisionEnter={onEnterCollisionCheckpoint}
       onCollisionExit={onExitCollisionCheckpoint}
       ref={refCheckpoint}
