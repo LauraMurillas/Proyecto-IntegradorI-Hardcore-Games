@@ -141,7 +141,9 @@ const toggleInstructions = () => {
             <Suspense fallback={null}>
               <Lights />
               <Environments />
-              <Checkpoint />
+            
+              
+              
               <Sparkles
                 color="white"
                 count={150}
@@ -169,6 +171,23 @@ const toggleInstructions = () => {
                 >
                   <Fox/>
                 </Ecctrl>
+
+                <Ecctrl
+                  camInitDis={3}
+                  camMaxDis={3}
+                  maxVelLimit={0}
+                  jumpVel={0}
+                  position={[0, 15, 0]}
+                  name = "checkpoint"
+                  onCollisionEnter={({other}) => {
+                    if(other.rigidBodyObject.name === "Fox"){
+                      console.log("Funciona");
+                    }
+                  }}
+                >
+                  <Checkpoint/>
+                </Ecctrl>
+
                 <RewardSpawner onCollect={handleCollect}/>
               </Physics>
               <WelcomeText position={[0, 1, -2]} />

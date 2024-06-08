@@ -12,7 +12,7 @@ const Checkpoints = (props) => {
   const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, position } = props
 
   // Importamos el modelo GLB
-  const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/MagicRing.glb');
+  const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/checkpointObject.glb');
 
   const refCheckpoint = useRef()
 
@@ -43,21 +43,21 @@ const Checkpoints = (props) => {
 
   // Cuando el jugador se encuentra con un checkpoint muestra un mensaje en pantalla
   const onEnterCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'playerBody') {
+    if (e.rigidBodyObject.name === 'Fox') {
       if (itsTaken) {
         setIsInRange(false)
-        dialogs.handleOpenDialogTaken()
+        //dialogs.handleOpenDialogTaken()
         return
       }
 
-      dialogs.handleOpenDialogInRange()
+      //dialogs.handleOpenDialogInRange()
       setIsInRange(true)
     }
   }
 
 
   const onExitCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'playerBody') {
+    if (e.rigidBodyObject.name === 'Fox') {
       dialogs.closeDialog()
       setIsInRange(false)
     }
@@ -75,20 +75,15 @@ const Checkpoints = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Checkpoints002_1.geometry}
+        geometry={nodes.Checkpoint002.geometry}
         material={itsTaken ? materials.StoneGold : materials.Stone}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Checkpoints002_2.geometry}
-        material={itsTaken ? materials.StoneGold : materials.Stone}
-      />
+    
     </RigidBody>
   )
 }
 
-useGLTF.preload('/assets/models/ringCheckpoint/MagicRing.glb');
+useGLTF.preload('/assets/models/ringCheckpoint/checkpointObject.glb');
 
 
 export default Checkpoints
