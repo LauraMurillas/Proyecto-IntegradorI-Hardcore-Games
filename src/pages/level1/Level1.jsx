@@ -172,9 +172,8 @@ const toggleInstructions = () => {
                   }}
                 >
                   <Fox/>
-                  <Checkpoint/>
                 </Ecctrl>
-
+                <Checkpoint/>
                 <RewardSpawner onCollect={handleCollect}/>
               </Physics>
               <WelcomeText position={[0, 1, -2]} />

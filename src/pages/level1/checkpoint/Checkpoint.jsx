@@ -1,73 +1,57 @@
-import React, { useState } from 'react'
-import Checkpoints from '../../../checkpoints/Checkpoints'
-//import { useDialog } from '../../../context/MensajeCheckpoint'
+import React, { useState, useEffect } from 'react'
+import { Checkpoints } from '../../../checkpoints/Checkpoints'
 import { useAuth } from '../../../context/AutenticacionContext'
 
 const Checkpoint = () => {
+  const { onTakeCheckpoint, getCheckpoints } = useAuth()
+  const [takenCheckpoints, setTakenCheckpoints] = useState({})
 
-  //const { openDialog, closeDialog } = useDialog()
-  const checkpointLevelOne = useAuth()
-  const onTakeCheckpoint = useAuth()
+  useEffect(() => {
+    const fetchCheckpoints = async () => {
+      const checkpoints = getCheckpoints('level_one')
+      setTakenCheckpoints(checkpoints)
+    }
+    fetchCheckpoints()
+  }, [getCheckpoints])
 
-  const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
-    onTakeCheckpoint('level_one', numberCheckpoint, position)
+  const handleOnTakeCheckpoint = async (numberCheckpoint, position) => {
+    try {
+      await onTakeCheckpoint('level_one', numberCheckpoint, position)
+      setTakenCheckpoints((prevState) => ({
+        ...prevState,
+        [numberCheckpoint]: true,
+      }))
+      console.log(`Checkpoint ${numberCheckpoint} tomado en posición`, position)
+    } catch (err) {
+      console.error('Error tomando el checkpoint:', err)
+    }
   }
-
-  /*
-  const handleOpenDialogInRange = () => {
-    openDialog('!Este es un checkpoint! Presiona la tecla <strong>E</strong> para guardarlo',
-      'checkpoint'
-    )
-  }
-
-  const handleOpenDialogTakeIt = () => {
-    openDialog('¡Has guardado este checkpoint, podrás volver aquí en caso de perder tus vidas!')
-  }
-
-  const handleOpenDialogTaken = () => {
-    openDialog('¡Ya has guardado este checkpoint!')
-  }
-
-  const dialogs = {
-    handleOpenDialogInRange,
-    handleOpenDialogTakeIt,
-    handleOpenDialogTaken,
-    closeDialog,
-  }
-  */  
-  
 
   return (
     <>
       <Checkpoints
         numberCheckpoint={1}
-        itsTaken={checkpointLevelOne[1]}
-        position={[-4.16052, 1, -39.8772]}
+        itsTaken={takenCheckpoints[1]}
+        position={[5, 0.68, 5]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
-        //dialogs={dialogs}
       />
-
       <Checkpoints
         numberCheckpoint={2}
-        itsTaken={checkpointLevelOne[2]}
-        position={[5.84319, 1, -54.4298]}
+        itsTaken={takenCheckpoints[2]}
+        position={[10, 0.68, -15]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
-        //dialogs={dialogs}
       />
       <Checkpoints
         numberCheckpoint={3}
-        itsTaken={checkpointLevelOne[3]}
-        position={[14.2202, -1.73976, 1.8868]}
+        itsTaken={takenCheckpoints[3]}
+        position={[14.2202, 0.68, 1.8868]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
-        //dialogs={dialogs}
       />
-
       <Checkpoints
         numberCheckpoint={4}
-        itsTaken={checkpointLevelOne[4]}
-        position={[0, 1, -88.9431]}
+        itsTaken={takenCheckpoints[4]}
+        position={[0, 0.68, -15]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
-        //dialogs={dialogs}
       />
     </>
   )

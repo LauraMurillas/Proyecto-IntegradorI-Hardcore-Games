@@ -8,82 +8,74 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
-const Checkpoints = (props) => {
+export function Checkpoints(props) {
+  const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/checkpointObject.glb')
   const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, position } = props
-
-  // Importamos el modelo GLB
-  const { nodes, materials } = useGLTF('/assets/models/ringCheckpoint/checkpointObject.glb');
-
   const refCheckpoint = useRef()
-
   const [isInRange, setIsInRange] = useState(false)
 
-  // Cuando el jugador recoge el checkpoint muestra un mensaje en pantalla
-  // Y recoge el id y la posicion del checkpoint
-  const onTakeCheckpoint = (event) => {
+  const onTakenCheckpoint = (event) => {
     if (event.keyCode === 69 && isInRange) {
       const position = {
         x: refCheckpoint.current.translation().x,
         y: 10,
         z: refCheckpoint.current.translation().z - 2,
       }
-
       handleOnTakeCheckpoint(numberCheckpoint, position)
       setIsInRange(false)
-      //dialogs.handleOpenDialogTakeIt()
     }
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', onTakeCheckpoint)
+    window.addEventListener('keydown', onTakenCheckpoint)
     return () => {
-      window.removeEventListener('keydown', onTakeCheckpoint)
+      window.removeEventListener('keydown', onTakenCheckpoint)
     }
   }, [isInRange])
 
-  // Cuando el jugador se encuentra con un checkpoint muestra un mensaje en pantalla
   const onEnterCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'Fox') {
+    if (e.rigidBodyObject.name === 'fox') {
       if (itsTaken) {
         setIsInRange(false)
-        //dialogs.handleOpenDialogTaken()
+        // dialogs.handleOpenDialogTaken()
         return
       }
 
-      //dialogs.handleOpenDialogInRange()
+      // dialogs.handleOpenDialogInRange()
       setIsInRange(true)
     }
   }
 
-
   const onExitCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'Fox') {
-      //dialogs.closeDialog()
+    if (e.rigidBodyObject.name === 'fox') {
+      // dialogs.closeDialog()
       setIsInRange(false)
     }
   }
 
-
   return (
-    <RigidBody
-      type="fixed" name='Checkpoint'
-      onCollisionEnter={onEnterCollisionCheckpoint}
-      onCollisionExit={onExitCollisionCheckpoint}
-      ref={refCheckpoint}
-      {...props}
-    >
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Checkpoint002.geometry}
-        material={itsTaken ? materials.StoneGold : materials.Stone}
-      />
-    
-    </RigidBody>
+    <group {...props} dispose={null}>
+      <RigidBody
+        type="fixed"
+        name="Checkpoint"
+        onCollisionEnter={onEnterCollisionCheckpoint}
+        onCollisionExit={onExitCollisionCheckpoint}
+        ref={refCheckpoint}
+        {...props}
+      >
+        <group position={position} rotation={[0, 0, -1.567]} scale={[0.1, 0.5, 0.5]}>
+          <mesh castShadow receiveShadow geometry={nodes.Plane.geometry} material={materials.Stone} />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Plane_1.geometry}
+            material={materials.StoneGold}
+          />
+        </group>
+      </RigidBody>
+    </group>
   )
 }
 
-useGLTF.preload('/assets/models/ringCheckpoint/checkpointObject.glb');
+useGLTF.preload('/assets/models/ringCheckpoint/checkpointObject.glb')
 
-
-export default Checkpoints

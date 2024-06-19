@@ -1,32 +1,30 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import { auth } from '../db/firebase-config'
-
-import {  onAuthStateChanged,  
-  signInWithEmailAndPassword,  
-  createUserWithEmailAndPassword,  
-  signOut, 
-  GoogleAuthProvider, 
-  signInWithPopup } from 'firebase/auth'
-
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
 import { createUser, getUser, updateUser } from '../db/user-collection'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error('useAuth debe ser usado dentro de un AuthProvider')
   }
   return context
 }
-
 
 const actionTypes = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   REGISTER: 'REGISTER',
   SET_USER: 'SET_USER',
-  //SET_COLLECTIBLES: 'SET_COLLECTIBLES',
   SET_LOADING: 'SET_LOADING',
 }
 
@@ -88,15 +86,13 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const loginWithGoogle = async () => {
-
     try {
-      const provider = new GoogleAuthProvider();
-      const res = await signInWithPopup(auth, provider);
-      return res;
-  } catch (error) {
-      return error;
-  }
-
+      const provider = new GoogleAuthProvider()
+      const res = await signInWithPopup(auth, provider)
+      return res
+    } catch (error) {
+      return error
+    }
   }
 
   const login = async (email, password) => {
@@ -118,8 +114,6 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  
-
   const register = async (userData) => {
     try {
       const res = await createUserWithEmailAndPassword(
@@ -140,7 +134,7 @@ export const AuthProvider = ({ children }) => {
           return { success: false, error: _res.error }
         }
       } else {
-        return { success: false, error: 'Error creating user' }
+        return { success: false, error: 'Error creando usuario' }
       }
     } catch (error) {
       console.error(error)
@@ -162,23 +156,19 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  
-  /*
-  const onCollect = (level, collectible) => {
-    const _user = { ...state.user }
-    _user[level][collectible] = true
-    _user.collectibles = _user.collectibles + 1
-    _user.lives = upgrateHearts(_user, _user.collectibles)
-    dispatch({ type: actionTypes.SET_USER, payload: _user })
-  }
-
-  */
-
   const onTakeCheckpoint = (level, checkpoint, position) => {
     const _user = { ...state.user }
+    if (!_user[`checkpoint_${level}`]) {
+      _user[`checkpoint_${level}`] = {}
+    }
     _user[`checkpoint_${level}`][checkpoint] = true
     _user[`pos_${level}`] = position
     editUser(_user)
+  }
+
+  const getCheckpoints = (level) => {
+    const checkpoints = state.user ? state.user[`checkpoint_${level}`] : {}
+    return checkpoints || {}
   }
 
   const onPassLevel = (level) => {
@@ -186,8 +176,6 @@ export const AuthProvider = ({ children }) => {
     _user.level = level
     editUser(_user)
   }
-
-
 
   const values = {
     user: state.user,
@@ -208,9 +196,9 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    //onCollect,
     onTakeCheckpoint,
     onPassLevel,
+    getCheckpoints,  // Añadimos getCheckpoints aquí
   }
 
   return (
@@ -226,5 +214,5 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-
 }
+
