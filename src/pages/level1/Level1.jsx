@@ -21,6 +21,7 @@ import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import HealthBar from '../../components/HealthBar';
 import RewardSpawner from "./characters/rewards/RewardSpawner";
 import Checkpoint from "./checkpoint/Checkpoint";
+//import { Checkpoints } from "../../checkpoints/Checkpoints";
 
 
 
@@ -34,6 +35,8 @@ export default function Level1() {
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
     const foxBodyRef = useRef();
+    const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
+    
 
 
     const handleCollect = (item) => {
@@ -81,7 +84,17 @@ const toggleInstructions = () => {
     const decreaseLives = () => {
       // Reducir las vidas del personaje
       if (lives > 0) {
-        setLives((prevLives) => prevLives - 1);
+        setLives((prevLives) => {
+          const newLives = prevLives - 1;
+          if (newLives === 0) {
+            audioDerrota.play();
+            setTimeout(() => {
+              window.location.reload();
+            }, 3500);
+            
+          }
+          return newLives;
+        });
       }
     };
 
@@ -160,7 +173,7 @@ const toggleInstructions = () => {
                   maxVelLimit={5}
                   jumpVel={4}
                   position={[0, 5, 0]}
-                  name = "fox"
+                  name = "Fox"
                   onCollisionEnter={({other}) => {
                     if(other.rigidBodyObject.name === "Bush"){
                       console.log("Funciona");
@@ -168,15 +181,19 @@ const toggleInstructions = () => {
                     if (other.rigidBodyObject.name == "Checkpoint") {
                       Checkpoint.itsTaken
                       console.log("checkpoint guardado")
+                      //id = toString(Checkpoint.numberCheckpoint)
+                      //console.log(id)
                     }
                   }}
-                >
+                  >
                   <Fox/>
                 </Ecctrl>
+
+              
                 <Checkpoint/>
                 <RewardSpawner onCollect={handleCollect}/>
               </Physics>
-              <WelcomeText position={[0, 1, -2]} />
+              <WelcomeText position={[0, 0.70, 2]} />
 
               <Controls />
             </Suspense>

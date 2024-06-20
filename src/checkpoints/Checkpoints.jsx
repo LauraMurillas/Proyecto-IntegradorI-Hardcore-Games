@@ -34,7 +34,7 @@ export function Checkpoints(props) {
   }, [isInRange])
 
   const onEnterCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'fox') {
+    if (e.rigidBodyObject.name === 'Fox') {
       if (itsTaken) {
         setIsInRange(false)
         // dialogs.handleOpenDialogTaken()
@@ -47,7 +47,7 @@ export function Checkpoints(props) {
   }
 
   const onExitCollisionCheckpoint = (e) => {
-    if (e.rigidBodyObject.name === 'fox') {
+    if (e.rigidBodyObject.name === 'Fox') {
       // dialogs.closeDialog()
       setIsInRange(false)
     }

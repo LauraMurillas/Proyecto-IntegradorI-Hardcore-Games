@@ -32,25 +32,25 @@ const Checkpoint = () => {
       <Checkpoints
         numberCheckpoint={1}
         itsTaken={takenCheckpoints[1]}
-        position={[5, 0.68, 5]}
+        position={[5, 0.70, 5]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
       />
       <Checkpoints
         numberCheckpoint={2}
         itsTaken={takenCheckpoints[2]}
-        position={[10, 0.68, -15]}
+        position={[10, 0.70, -5]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
       />
       <Checkpoints
         numberCheckpoint={3}
         itsTaken={takenCheckpoints[3]}
-        position={[14.2202, 0.68, 1.8868]}
+        position={[10, 0.70, 8]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
       />
       <Checkpoints
         numberCheckpoint={4}
         itsTaken={takenCheckpoints[4]}
-        position={[0, 0.68, -15]}
+        position={[0, 0.70, -9]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
       />
     </>
