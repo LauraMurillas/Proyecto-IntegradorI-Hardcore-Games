@@ -21,9 +21,9 @@ import Ecctrl, { EcctrlAnimation } from "ecctrl";
 import HealthBar from '../../components/HealthBar';
 import RewardSpawner from "./characters/rewards/RewardSpawner";
 import Checkpoint from "./checkpoint/Checkpoint";
+import { transformDirection } from "three/examples/jsm/nodes/Nodes.js";
+import { Vector3 } from "three";
 //import { Checkpoints } from "../../checkpoints/Checkpoints";
-
-
 
 
 
@@ -34,8 +34,12 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
-    const foxBodyRef = useRef();
+    const refFox = useRef();
     const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
+
+    const position = new Vector3 (Checkpoint.current?.position.x, Checkpoint.current?.position.y, Checkpoint.current?.position.z);
+    
+
     
 
 
@@ -88,9 +92,8 @@ const toggleInstructions = () => {
           const newLives = prevLives - 1;
           if (newLives === 0) {
             audioDerrota.play();
-            setTimeout(() => {
-              window.location.reload();
-            }, 3500);
+
+            Fox.current.setTranslation(position, true);
             
           }
           return newLives;
@@ -181,8 +184,7 @@ const toggleInstructions = () => {
                     if (other.rigidBodyObject.name == "Checkpoint") {
                       Checkpoint.itsTaken
                       console.log("checkpoint guardado")
-                      //id = toString(Checkpoint.numberCheckpoint)
-                      //console.log(id)
+                    
                     }
                   }}
                   >
