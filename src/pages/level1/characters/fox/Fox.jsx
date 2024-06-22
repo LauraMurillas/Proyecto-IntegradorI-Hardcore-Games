@@ -4,6 +4,7 @@ import { RigidBody } from '@react-three/rapier';
 import { useFox } from '../../../../context/FoxContext';
 import { Vector3 } from 'three';
 import { TransformControls } from '@react-three/drei';
+import Checkpoint from '../../checkpoint/Checkpoint';
 
 
 export default function Fox() {
@@ -12,6 +13,17 @@ export default function Fox() {
   const { fox, setFox } = useFox(); // Obtener la referencia y la función para establecer el zorro desde el contexto
   const { nodes, materials, animations } = useGLTF('/assets/models/fox/Prueba2.glb');
   const { actions } = useAnimations(animations, foxRef);
+
+
+
+  const changePosition = () => {
+    
+    ({other}) => {
+      if(other.RigidBodyObject.name == "Checkpoint") {
+        RigidBody.current.setTranslation(vec3({ x: 5, y: 0.70, z: 10}));
+      }
+    }  
+  }
 
 
   useEffect(() => {
@@ -35,8 +47,10 @@ export default function Fox() {
 
 
   return (
-    <RigidBody ref={foxBodyRef} position={[0,0,0]} colliders={false} name='Fox'>
+    <RigidBody ref={foxBodyRef} position={[0,0,0]} colliders={false} name='Fox' >
+      
       <group ref={foxRef} name="Scene">
+        
         <group
           position={[0, -0.63, 0]}
           rotation={[0.094, -Math.PI / 1.7, 0.094]}

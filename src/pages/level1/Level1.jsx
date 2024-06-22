@@ -23,8 +23,7 @@ import RewardSpawner from "./characters/rewards/RewardSpawner";
 import Checkpoint from "./checkpoint/Checkpoint";
 import { transformDirection } from "three/examples/jsm/nodes/Nodes.js";
 import { Vector3 } from "three";
-//import { Checkpoints } from "../../checkpoints/Checkpoints";
-
+import { Checkpoints } from "../../checkpoints/Checkpoints";
 
 
 export default function Level1() {
@@ -34,19 +33,17 @@ export default function Level1() {
     const [volume, setVolume] = useState(0.5); // Estado para almacenar el volumen del juego, valor inicial al 50%
     const [lives, setLives] = useState(3); // Número de vidas del personaje
     const maxLives = 5; // Número máximo de vidas
-    const refFox = useRef();
+    //const refCheckpoint = useRef();
+    const checkpointTake = false
     const audioDerrota = new Audio("./assets/sounds/derrota.mp3");
 
-    const position = new Vector3 (Checkpoint.current?.position.x, Checkpoint.current?.position.y, Checkpoint.current?.position.z);
-    
-
-    
-
-
+    const posicion = new Vector3 (Checkpoint.current?.position.x, Checkpoint.current?.position.y, Checkpoint.current?.position.z);
+     
     const handleCollect = (item) => {
       console.log(`Collected ${item.name}`);
     };
   
+
 /**para l introduccion del juego */
 const [showInstructions, setShowInstructions] = useState(false);
 
@@ -90,10 +87,24 @@ const toggleInstructions = () => {
       if (lives > 0) {
         setLives((prevLives) => {
           const newLives = prevLives - 1;
-          if (newLives === 0) {
-            audioDerrota.play();
 
-            Fox.current.setTranslation(position, true);
+          if (newLives === 0) {
+
+            audioDerrota.play() 
+            
+            if (checkpointTake == true){
+              console.log("lee checkpoint");
+              setTimeout(() => {
+                //Reaparece el Fox en la posicion del checkpoint tomado  
+                Fox.onChangePosition(posicion);
+                //Fox.current?.setTranslation(vec3({x: posicion[0], y: posicion[1], z: posicion[2]}), true)
+              }, 3500);
+            } else {
+              setTimeout(() => {
+                //Reinicia el nivel 
+                window.location.reload();
+              }, 3500);
+            }
             
           }
           return newLives;
@@ -182,9 +193,9 @@ const toggleInstructions = () => {
                       console.log("Funciona");
                     }
                     if (other.rigidBodyObject.name == "Checkpoint") {
-                      Checkpoint.itsTaken
                       console.log("checkpoint guardado")
-                    
+                      checkpointTake = true
+                                         
                     }
                   }}
                   >
